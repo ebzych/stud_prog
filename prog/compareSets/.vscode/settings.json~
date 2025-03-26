@@ -1,6 +1,0 @@
-{
-    "C_Cpp.errorSquiggles": "disabled",
-    "files.associations": {
-        "dynamic_arr_hashset_lib.h": "c"
-    }
-}

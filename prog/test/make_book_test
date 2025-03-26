@@ -1,3 +1,0 @@
-all : book_test
-book_test : book_test.c
-	gcc book_test.c -o book_test
