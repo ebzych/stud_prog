@@ -1,5 +1,23 @@
 #include <parsing_from_console.h>
 
+int parse_input_array(char *str, int_duple_dynamic_array_t *array) {
+    int str_len = strlen(str);
+    int openning_counter = 0; // must be on 0 or 1 position
+    // iterations are made after first '<' and before last '>'
+    for (int i = 1;
+         (i + 1 < str_len) && (openning_counter == 0 || openning_counter == 1); // if -1, hence excess '>', if 2, hence excess '<'
+         i++)
+    {
+        if (handle_char(&str[i], array, i, &openning_counter) == -1)
+            { return -1; }
+    }
+
+    if (openning_counter != 0)  // hence incorrect combination of opened and closed branches
+        { return -1; }
+    else
+        { return 0; }
+}
+
 int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *opening_counter) {
     switch (ch[0])
     {
@@ -14,7 +32,12 @@ int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *open
         array->size++;
         break;
 
-    default:                    //////////////////////////////////////
+    default:
+        if ( (ch >= '0' && ch <= '9')
+            || ch == ',' || ch == ' ' ) {
+                break;
+        } else
+            { return -1; }
     }
 }
 
