@@ -1,0 +1,7 @@
+#include <stdlib.h>
+#include <alloc.h>
+
+int main() {
+    brk();
+    return 0;
+}
