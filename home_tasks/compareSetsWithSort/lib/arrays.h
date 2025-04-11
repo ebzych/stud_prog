@@ -2,6 +2,8 @@
 #define ARRAYS
 
 #include <includes.h>
+#include <parsing_from_console.h>
+#include <init_array.h>
 
 typedef int * int_array_t;
 

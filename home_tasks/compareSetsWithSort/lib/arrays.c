@@ -1,7 +1,4 @@
-#include <includes.h>
 #include <arrays.h>
-#include <parsing_from_console.h>
-#include <init_array.h>
 
 int_duple_dynamic_array_t get_array_from_console() {
     printf("Enter multiset (e.g. \"<<1, 2>, <1>>\"): ");
