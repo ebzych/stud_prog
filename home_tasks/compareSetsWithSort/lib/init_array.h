@@ -14,6 +14,4 @@ int init_subarray(char *str, int_duple_dynamic_array_t *array, int index);
 int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *opening_counter);
 int initialize_subarrays(char *str, int_duple_dynamic_array_t *array);
 
-int_duple_dynamic_array_t get_array_from_console();
-
 #endif //INCONSOLE

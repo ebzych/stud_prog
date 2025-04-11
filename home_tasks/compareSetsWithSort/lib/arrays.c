@@ -7,7 +7,7 @@ int_duple_dynamic_array_t get_array_from_console() {
 
     int_duple_dynamic_array_t *array = malloc(sizeof(int_duple_dynamic_array_t));
 
-    initialize_subarrays(str_input, array);
+    parse_input_array(str_input, array);
 
     free(str_input);
 

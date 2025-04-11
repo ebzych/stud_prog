@@ -17,6 +17,7 @@ typedef struct int_duple_dynamic_array {    // two-dimension dynamic array of in
     int_dynamic_array_t *container;   // (int **)container of one-dimension dynamic arrays of int with size
 } int_duple_dynamic_array_t;
 
+int_duple_dynamic_array_t get_array_from_console();
 int_dynamic_array_t *get_subarray(int_duple_dynamic_array_t *array, int index);
 
 #endif //ARRAYS
