@@ -3,8 +3,6 @@
 array_hashset_t *create_hashset(size_t h_size) {
     array_hashset_t *hashset_p = malloc(sizeof(array_hashset_t));
     hashset_p->size = h_size;
-    hashset_p->inner_sizes = malloc(hashset_p->size * sizeof(int));
-    hashset_p->container = malloc(sizeof(int_dynamic_array_t *));
 
     if (initialize_hashset(hashset_p) != SUCCESS)
         { hashset_p = NULL; };   // if errors occurred in initializing
@@ -16,53 +14,131 @@ enum hashset_returns initialize_hashset(array_hashset_t *hashset) {
     if (hashset == NULL) { return NULL_PTR; }
 
     hashset->container =
-        malloc(hashset->size * sizeof(int_dynamic_array_t *)); // allocate container
+        malloc(hashset->size * sizeof(bucket_t *)); // allocate container
 
-    if (hashset->container == NULL) { return MEM_NOT_ALLOC; }    // check if memory is not allocated
+    if (hashset->container == NULL)
+        { return MEM_NOT_ALLOC; }    // check if memory is not allocated
 
     for (int i = 0; i < hashset->size; i++) {
         hashset->container[i] =
-            malloc(STANDARD_BUCKET_SIZE * sizeof(int_dynamic_array_t)); // allocate buckets with standard size
-
+            malloc(sizeof(bucket_t)); // allocate buckets
+            
         for (int j = 0; j < STANDARD_BUCKET_SIZE; j++) {
-            hashset->container[i][j] = malloc(sizeof(int_dynamic_array_t *));
-            if (hashset->container[i][j] == NULL) { return MEM_NOT_ALLOC; }    // check if memory is not allocated
+            pair_t *h_element = hashset->container[i]->pairs[j];
+            hashset->container[i]->pairs[j]->count = 0; // start count of arrays is 0
+
+            if ( (h_element->arr =                              // allocate elements of hashset
+                malloc(sizeof(int_dynamic_array_t))) == NULL)   // and check memory is allocated
+                { return MEM_NOT_ALLOC; }
+
+            if ( (h_element->arr->arr =
+                malloc(h_element->arr->size * sizeof(int_dynamic_array_t)))
+                    == NULL )
+                    { return MEM_NOT_ALLOC; }   // allocate and check dynamic array in pair
         }
 
-        if (hashset->container[i] == NULL) { return MEM_NOT_ALLOC; }    // check if memory is not allocated
+        if (hashset->container[i] == NULL)
+            { return MEM_NOT_ALLOC; }    // check if memory is not allocated
     }
 
     return SUCCESS;
+}
+
+void int_dyn_arr_free(int_dynamic_array_t *arr) {
+    free(arr->arr);
+    free(arr);
+}
+
+void pair_free(pair_t *pair) {
+    int_dyn_arr_free(pair->arr);
+    free(pair);
+}
+
+void bucket_free(bucket_t *bucket) {
+    for (int i = 0; i < bucket->count; i++) {
+        pair_free(bucket->pairs[i]);
+    }
+
+    free(bucket);
+}
+
+void hashset_free(array_hashset_t *hashset) {
+    for (int i = 0; i < hashset->size; i++) {
+        bucket_free(hashset->container[i]);
+    }
+
+    free(hashset);
+}
+
+bool dyn_arr_are_equivalent
+    (int_dynamic_array_t *arr1, int_dynamic_array_t *arr2)
+{
+    if (arr1->size != arr2->size)
+        { return false; }
+
+    for (int i = 0; i < arr1->size; i++) {
+        if (arr1->arr[i] != arr2->arr[i])
+            { return false; }
+    }
+
+    return true;
+}
+
+int hashset_find
+    (array_hashset_t *hashset, int_dynamic_array_t *arr)
+{
+    unsigned long hash = get_array_hashcode(arr);
+    int bucket_ind = hash % hashset->size;
+    bucket_t *buck = hashset->container[bucket_ind];
+
+    for (int i = 0; i < buck.count; i++) {
+        pair_t *element = buck.pairs[i];
+        if (dyn_arr_are_equivalent(arr, element.arr))
+            { return i; }
+    }
+
+    return -1; // not in bucket
 }
 
 enum hashset_returns hashset_resize(array_hashset_t *hashset) {
     array_hashset_t *new_hashset = create_hashset(hashset->size * 2);
 
     for (int i = 0; i < hashset->size; i++) {
-        for (int j = 0; j < hashset->inner_sizes[i]; j++) {
-            if (hashset_add(new_hashset, hashset->container[i][j]) == MEM_NOT_ALLOC)
-                { return MEM_NOT_ALLOC; };
+        for (int j = 0; j < hashset->container[i]->count; j++) {
+            if (hashset_add(
+                new_hashset,
+                hashset->container[i]->pairs[j]->arr
+                ) == MEM_NOT_ALLOC)
+                    { return MEM_NOT_ALLOC; };
         }
-
-        free(hashset->container[i]);
     }
 
-    free(hashset->inner_sizes);
-    free(hashset);
+    hashset_free(hashset);
 
     return SUCCESS;
 }
 
-enum hashset_returns hashset_add(array_hashset_t *hashset, int_dynamic_array_t *new_array) {
-    if (hashset == NULL) { return NULL_PTR; }
+enum hashset_returns hashset_add
+    (array_hashset_t *hashset, int_dynamic_array_t *new_array)
+{
+    if (hashset == NULL)
+        { return NULL_PTR; }
 
     int index_of_bucket = get_array_hashcode(new_array) % hashset->size;
-    int last_in_bucket = hashset->inner_sizes[index_of_bucket];
+    int last_in_bucket = -1 + hashset->container[index_of_bucket].count;
 
-    hashset->container[index_of_bucket][last_in_bucket] = new_array;
-    hashset->inner_sizes[index_of_bucket]++;
+    int ind_found_el = hashset_find(hashset, new_array);
+    pair_t element =
+        hashset->container[index_of_bucket].pairs[ind_found_el];
+    if (ind_found_el == -1) {
+        element->arr = new_array;
+    } else {
+        element->arr[last_in_bucket] = new_array;
+    }
 
-    if (hashset->inner_sizes[index_of_bucket] == STANDARD_BUCKET_SIZE) {
+    element.count++;
+
+    if (hashset->container->pairs[ind_found_el] == STANDARD_BUCKET_SIZE) {
         if (hashset_resize(hashset) == MEM_NOT_ALLOC)
             { return MEM_NOT_ALLOC; };
     }
