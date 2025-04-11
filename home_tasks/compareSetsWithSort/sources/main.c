@@ -1,6 +1,11 @@
+#include <init_array.h>
 #include <compsets.h>
 
 /*
+module1: input
+
+
+module2: comparing
     if (size1 != size2) {
         goto bad;
     }
@@ -35,7 +40,6 @@
     */
 
 int main() {
-    
-
+    int_duple_dynamic_array_t arr = get_array_from_console();
     return 0;
 }

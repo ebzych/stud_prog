@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "compsets.h": "c",
+        "unity.h": "c",
+        "inconsole.h": "c",
+        "stdlib.h": "c",
+        "includes.h": "c"
+    }
+}
