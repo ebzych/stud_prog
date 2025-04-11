@@ -32,7 +32,12 @@ int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *open
         array->size++;
         break;
 
-    default:                    //////////////////////////////////////
+    default:
+        if ( (ch >= '0' && ch <= '9')
+            || ch == ',' || ch == ' ' ) {
+                break;
+        } else
+            { return -1; }
     }
 }
 
