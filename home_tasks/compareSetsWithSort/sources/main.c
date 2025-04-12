@@ -42,12 +42,40 @@ module2: comparing
     */
 
 int main() {
-    int_duple_dynamic_array_t arr = get_array_from_console();
-    for (int i = 0; i < arr.size; i++) {
-        for (int j = 0; j < arr.container[i].size; j++) {
-            printf("%i ", arr.container[i].container[j]);
-        }
-        printf("\n");
-    }
+    int_duple_dynamic_array_t *arr;
+    arr = malloc(sizeof(int_duple_dynamic_array_t));
+
+    *arr = get_array_from_console();
+
+    // arr->size = 2;
+    // arr->container =
+    //     malloc(arr->size * sizeof(int_duple_dynamic_array_t *));
+    // arr->container[0].size = 2;
+    // arr->container[0].container =
+    //     malloc(arr->container[0].size * sizeof(int_dynamic_array_t *));
+    // arr->container[1].container =
+    //     malloc(sizeof(int_dynamic_array_t *));
+    // arr->container[0].container[0] = 2;
+    // arr->container[0].container[1] = 1;
+    // arr->container[1].container[0] = 1;
+    // arr->container[1].size = 1;
+
+    // int_duple_dynamic_array_t *arr0;
+    // arr0 = malloc(sizeof(int_duple_dynamic_array_t));
+    // arr0->size = 2;
+    // arr0->container =
+    //     malloc(arr0->size * sizeof(int_duple_dynamic_array_t *));
+    // arr0->container[1].size = 2;
+    // arr0->container[1].container =
+    //     malloc(arr0->container[0].size * sizeof(int_dynamic_array_t *));
+    // arr0->container[0].container =
+    //     malloc(sizeof(int_dynamic_array_t *));
+    // arr0->container[1].container[1] = 2;
+    // arr0->container[1].container[0] = 1;
+    // arr0->container[0].container[0] = 1;
+    // arr0->container[0].size = 1;
+
+    // printf("%i", multisets_are_equal(arr, arr0));
+
     return 0;
 }

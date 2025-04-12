@@ -4,8 +4,6 @@ CFLAGS = -g
 
 SOURCES = sources/*.c
 OBJ = arrays.o parsing_from_console.o init_array.o compsets.o
-LINK_ORDER = compsets.o init_array.o parsing_from_console.o arrays.o
-LIB_SOURCE = arrays.c parsing_from_console.c init_array.c compsets.c
 
 RELEASE_OUTPUT = 
 DEBUG_OUTPUT = Build/Debug/compare_sets
@@ -33,4 +31,5 @@ arrays.o: lib/arrays.c
 
 test:
 	$(CC) $(CFLAGS) $(LIBS) tests/test_input.c \
-		lib/init_array.c $(UNIT_TESTS) -lm -o $(TEST_OUTPUT)
+		lib/compsets.c lib/init_array.c lib/parsing_from_console.c \
+		lib/arrays.c $(UNIT_TESTS) -lm -o $(TEST_OUTPUT)

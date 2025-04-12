@@ -6,6 +6,7 @@ int_duple_dynamic_array_t get_array_from_console() {
     scanf("%s", str_input);
 
     int_duple_dynamic_array_t *array = malloc(sizeof(int_duple_dynamic_array_t));
+    array->size = 0;
 
     parse_input_array(str_input, array);
 
@@ -36,13 +37,13 @@ int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *open
     switch (ch[0])
     {
     case '<':
-        opening_counter++;
+        (*opening_counter)++;
         if (init_subarray(ch, array, index) == -1)
             { return -1; }
         break;
 
     case '>':
-        opening_counter--;
+        (*opening_counter)--;
         array->size++;
         break;
 
@@ -59,7 +60,7 @@ int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *open
 
 // 'str' is string which begining at ','
 // function reverse for take number before ','
-int get_number_from_str(char *ch) {
+long long get_number_from_str(char *ch) {
     do { ch--; } while (*ch == ' ');
 
     int number = 0;
@@ -73,7 +74,7 @@ int get_number_from_str(char *ch) {
     if (digit != 0 && (*ch == '<' || *ch == ',' || *ch == ' '))
         { return number; }
     else
-        { return -1; }
+        { return SMALLEST_LLONG; }
 }
 
 int count_items(char *str) {
