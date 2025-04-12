@@ -2,21 +2,13 @@
 #include <compsets.h>
 #include <parsing_from_console.h>
 
-int compare_duple_dynamic_arrays(int_duple_dynamic_array_t *first,
-                                    int_duple_dynamic_array_t *second) {
-    if (first->size != second->size)
-        { return -1; }
+bool check_duple_array(int_duple_dynamic_array_t *array) {
+    if (array->container[0].container[0] != 2
+        || array->container[0].container[1] != 1
+        || array->container[1].container[0] != 1)
+        { return false; }
 
-    for (int i = 0; i < first->size; i++) {
-        for (int j = 0; j < first->container[i].size; j++){
-            if (j < second->container[i].size &&
-                (first->container[i].container[j] !=
-                second->container[i].container[j]) )
-                { return -1; }
-        }
-    }
-
-    return 0;
+    return true;
 }
 
 int_duple_dynamic_array_t *create_array() {
@@ -35,6 +27,21 @@ int_duple_dynamic_array_t *create_array() {
     return arr;
 }
 
+void test__CountItems_NumberElementsFromString() {
+    char *str1 = "<2,1>";
+    char *str2 = "<2       1>";
+    char *str3 = "<2<,1>,<1>>";
+    char *str4 = "<,1>";
+    char *str5 = "<< ,1>,<1>>";
+    char *str6 = "<   2  ,  1   >";
+    TEST_ASSERT_EQUAL(2, count_items(str1));
+    TEST_ASSERT_EQUAL(-1, count_items(str2));
+    TEST_ASSERT_EQUAL(-1, count_items(str3));
+    TEST_ASSERT_EQUAL(-1, count_items(str4));
+    TEST_ASSERT_EQUAL(-1, count_items(str5));
+    TEST_ASSERT_EQUAL(2, count_items(str6));
+}
+
 void test__ParseInputArray_CorrectWriteIntoArray() {
     // initialization template array
     int_duple_dynamic_array_t *arr = malloc(sizeof(int_duple_dynamic_array_t));
@@ -48,6 +55,10 @@ void test__ParseInputArray_CorrectWriteIntoArray() {
     char *str6 = "<<2,1>,<1";
     char *str7 = "<<2 1><1>>";
     
+    // tests
+    int result;
+    if (parse_input_array(str1, arr) != -1) {}
+    // check_duple_array();
 }
 
 void test_NumberBeforeCommaOrIncorrectInput_GetNumberFromStr_ReturnNumberOrError() {
@@ -71,6 +82,7 @@ void tearDown() {}
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_NumberBeforeCommaOrIncorrectInput_GetNumberFromStr_ReturnNumberOrError);
+    RUN_TEST(test__CountItems_NumberElementsFromString);
     UNITY_END();
     return 0;
 }

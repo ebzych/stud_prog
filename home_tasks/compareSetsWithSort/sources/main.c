@@ -2,6 +2,7 @@
 #include <compsets.h>
 #include <parsing_from_console.h>
 #include <arrays.h>
+#include <simple_input.h>
 
 /*
 module1: input
@@ -42,10 +43,9 @@ module2: comparing
     */
 
 int main() {
-    int_duple_dynamic_array_t *arr;
-    arr = malloc(sizeof(int_duple_dynamic_array_t));
-
-    *arr = get_array_from_console();
+    int_duple_dynamic_array_t arr1 = simply_get_from_console();
+    int_duple_dynamic_array_t arr2 = simply_get_from_console();
+    printf("%i", multisets_are_equal(&arr1, &arr2));
 
     // arr->size = 2;
     // arr->container =
