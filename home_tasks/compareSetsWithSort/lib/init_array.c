@@ -21,7 +21,7 @@ int alloc_subarray(char *str, int_duple_dynamic_array_t *array, int index_subarr
     if (number_items == -1)
         { return -1; }
 
-    get_subarray(array, index_subarray)->container =  //////////
+    get_subarray(array, index_subarray)->container =
         malloc(number_items * sizeof(int));
 
     get_subarray(array, index_subarray)->size = number_items;

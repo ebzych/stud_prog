@@ -1,22 +1,30 @@
 #include <compsets.h>
 
-// size_t get_size(int_duple_dynamic_array_t *arr) {   // Get double dynamic array size
-//     return (*arr).size;
-// }
+int comp_one_dim_array(void *first, void *second) {
+    if (first == second) {
+        return 0;
+    }
+    if (first > second) {
+        return 1;
+    }
+    if (first < second) {
+        return -1;
+    }
+}
 
-// size_t get_size(int_dynamic_array_t *arr) {         // Get dynamic array size
-//     return (*arr).size;
-// }
+extern __compar_fn_t (*ptr) (void *, void *) = comp_one_dim_array;
 
-// int_dynamic_array_t *get_subarray(int_duple_dynamic_array_t *arr, int pos) {
-//     int_dynamic_array_t *subarr = &(*arr).container[pos];
-//     return subarr;
-// }
+bool multisets_is_equal(const int_duple_dynamic_array_t * const first,
+        const int_duple_dynamic_array_t * const second) {
+    // check for null, empty size
+    if (first->size != second->size)
+        { return false; }
 
-// void init_duple_dynamic_array(int_duple_dynamic_array_t *arr) {
-//     for (int i = 0; i < get_size(arr); i++) {
-//         int_dynamic_array_t *subarr = get_subarray(arr, i);
-//         (*subarr).container = malloc(get_size(subarr) * INT_SIZE);
-//     }
-// }
+    for (int i = 0; i < first->size; i++) {
+        size_t size = first->container[i].size;
+        int_dynamic_array_t *array = &first->container[i];
+        qsort(array->container, size, size * sizeof(int_dynamic_array_t), ptr);
+    }
 
+    return true;
+}

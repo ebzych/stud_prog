@@ -6,6 +6,7 @@ int_duple_dynamic_array_t get_array_from_console() {
     scanf("%s", str_input);
 
     int_duple_dynamic_array_t *array = malloc(sizeof(int_duple_dynamic_array_t));
+    array->size = 0;
 
     parse_input_array(str_input, array);
 

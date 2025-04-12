@@ -42,12 +42,27 @@ module2: comparing
     */
 
 int main() {
-    int_duple_dynamic_array_t arr = get_array_from_console();
-    for (int i = 0; i < arr.size; i++) {
-        for (int j = 0; j < arr.container[i].size; j++) {
-            printf("%i ", arr.container[i].container[j]);
+    int_duple_dynamic_array_t *arr;
+    arr->size = 2;
+    arr->container =
+        malloc(arr->size * sizeof(int_duple_dynamic_array_t *));
+    arr->container[0].size = 2;
+    arr->container[0].container =
+        malloc(arr->container[0].size * sizeof(int_dynamic_array_t *));
+    arr->container[1].container =
+        malloc(sizeof(int_dynamic_array_t *));
+    arr->container[0].container[0] = 2;
+    arr->container[0].container[1] = 1;
+    arr->container[1].container[0] = 1;
+
+    qsort(arr->container, arr->container[0].size, arr->container[0].size * sizeof(int_dynamic_array_t), ptr);
+
+    for (int i = 0; i < arr->size; i++) {
+        for (int j = 0; j < arr->container[i].size; j++) {
+            printf("%i ", arr->container[i].container[j]);
         }
         printf("\n");
     }
+
     return 0;
 }
