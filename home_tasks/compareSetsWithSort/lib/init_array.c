@@ -37,9 +37,11 @@ int init_subarray(char *str, int_duple_dynamic_array_t *array, int index) {
     int i = 0;
     for ( ; (str[i] != '\0') && (str[i - 1] != '>'); i++) {
         if (str[i] == ',') {
-            get_subarray(array, index)->container[init_number] =
-                 get_number_from_str(&str[i]);
-            init_number++;
+            if ( (get_subarray(array, index)->container[init_number] =
+                 get_number_from_str(&str[i])) != SMALLEST_LLONG)
+                init_number++;
+            else
+                { return -1; }
         }
     }
 
