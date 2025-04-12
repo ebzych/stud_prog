@@ -1,5 +1,19 @@
 #include <parsing_from_console.h>
 
+int_duple_dynamic_array_t get_array_from_console() {
+    printf("Enter multiset (e.g. \"<<1, 2>, <1>>\"): ");
+    char *str_input = malloc(100 * sizeof(char));
+    scanf("%s", str_input);
+
+    int_duple_dynamic_array_t *array = malloc(sizeof(int_duple_dynamic_array_t));
+
+    parse_input_array(str_input, array);
+
+    free(str_input);
+
+    return *array;
+}
+
 int parse_input_array(char *str, int_duple_dynamic_array_t *array) {
     int str_len = strlen(str);
     int openning_counter = 0; // must be on 0 or 1 position
@@ -33,12 +47,14 @@ int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *open
         break;
 
     default:
-        if ( (ch >= '0' && ch <= '9')
-            || ch == ',' || ch == ' ' ) {
+        if ( (*ch >= '0' && *ch <= '9')
+            || *ch == ',' || *ch == ' ' ) {
                 break;
         } else
             { return -1; }
     }
+
+    return 0;
 }
 
 // 'str' is string which begining at ','

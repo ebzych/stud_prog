@@ -1,5 +1,5 @@
 #include <unity.h>
-#include <inconsole.h>
+#include <arrays.h>
 
 void test_NumberBeforeComma_GetNumberFromStr_ReturnNumber() {
     char *str1 = "<123002,";
