@@ -53,6 +53,8 @@ int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *open
         } else
             { return -1; }
     }
+
+    return 0;
 }
 
 // 'str' is string which begining at ','
