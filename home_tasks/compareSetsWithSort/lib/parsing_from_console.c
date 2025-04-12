@@ -36,13 +36,13 @@ int handle_char(char *ch, int_duple_dynamic_array_t *array, int index, int *open
     switch (ch[0])
     {
     case '<':
-        opening_counter++;
+        (*opening_counter)++;
         if (init_subarray(ch, array, index) == -1)
             { return -1; }
         break;
 
     case '>':
-        opening_counter--;
+        (*opening_counter)--;
         array->size++;
         break;
 
