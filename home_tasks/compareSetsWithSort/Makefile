@@ -4,8 +4,6 @@ CFLAGS = -g
 
 SOURCES = sources/*.c
 OBJ = arrays.o parsing_from_console.o init_array.o compsets.o
-LINK_ORDER = compsets.o init_array.o parsing_from_console.o arrays.o
-LIB_SOURCE = compsets.c init_array.c parsing_from_console.c arrays.c
 
 RELEASE_OUTPUT = 
 DEBUG_OUTPUT = Build/Debug/compare_sets

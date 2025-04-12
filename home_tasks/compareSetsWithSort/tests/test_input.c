@@ -37,9 +37,9 @@ int_duple_dynamic_array_t *create_array() {
 
 void test__ParseInputArray_CorrectWriteIntoArray() {
     // initialization template array
-    int_duple_dynamic_array_t *arr = create_array();
+    int_duple_dynamic_array_t *arr = malloc(sizeof(int_duple_dynamic_array_t));
 
-    // initialization test strings
+    // initialization test strings for parsing
     char *str1 = "<<2,1>,<1>>";
     char *str2 = "<   < 2 ,     1 > ,    < 1 >    >";
     char *str3 = "<2<,1>,<1>>";
@@ -47,8 +47,7 @@ void test__ParseInputArray_CorrectWriteIntoArray() {
     char *str5 = "<< ,1>,<1>>";
     char *str6 = "<<2,1>,<1";
     char *str7 = "<<2 1><1>>";
-    // TEST_ASSERT_EQUAL(0,
-    //    compare_duple_dynamic_arrays(arr, parse_input_array(str1)))
+    
 }
 
 void test_NumberBeforeCommaOrIncorrectInput_GetNumberFromStr_ReturnNumberOrError() {
