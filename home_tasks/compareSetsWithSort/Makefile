@@ -3,7 +3,9 @@ LIBS = -I ~/Documents/stud_prog/unity_tests/Unity/src -I lib
 CFLAGS = -g
 
 SOURCES = sources/*.c
-OBJ = init_console.o compsets.o
+OBJ = arrays.o parsing_from_console.o init_array.o compsets.o
+LINK_ORDER = compsets.o init_array.o parsing_from_console.o arrays.o
+LIB_SOURCE = arrays.c parsing_from_console.c init_array.c compsets.c
 
 RELEASE_OUTPUT = 
 DEBUG_OUTPUT = Build/Debug/compare_sets
@@ -12,17 +14,23 @@ TEST_OUTPUT = Build/Test/test_init_array
 UNIT_TESTS = ~/Documents/stud_prog/unity_tests/Unity/src/unity.c
 
 clean: all
-	rm -rf compsets.o init_console.o
+	rm -rf $(OBJ)
 
-all: init_console.o compsets.o
-	$(CC) $(CFLAGS) $(LIBS) $(SOURCES) $(OBJ) -lm -o $(DEBUG_OUTPUT)
-
-inconsole.o: lib/init_console.c
-	$(CC) $(CFLAGS) $(LIBS) lib/init_console.c -lm -c
+all: $(OBJ)
+	$(CC) $(CFLAGS) $(LIBS) $(OBJ) $(SOURCES) -lm -o $(DEBUG_OUTPUT)
 
 compsets.o: lib/compsets.c
 	$(CC) $(CFLAGS) $(LIBS) lib/compsets.c -lm -c
 
+init_array.o: lib/arrays.c lib/init_array.c
+	$(CC) $(CFLAGS) $(LIBS) lib/arrays.c lib/init_array.c -lm -c
+
+parsing_from_console.o: lib/init_array.c lib/parsing_from_console.c
+	$(CC) $(CFLAGS) $(LIBS) lib/init_array.c lib/parsing_from_console.c -lm -c
+
+arrays.o: lib/arrays.c
+	$(CC) $(CFLAGS) $(LIBS) lib/arrays.c -lm -c
+
 test:
 	$(CC) $(CFLAGS) $(LIBS) tests/test_input.c \
-		lib/init_console.c $(UNIT_TESTS) -lm -o $(TEST_OUTPUT)
+		lib/init_array.c $(UNIT_TESTS) -lm -o $(TEST_OUTPUT)

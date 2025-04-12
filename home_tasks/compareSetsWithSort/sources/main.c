@@ -1,5 +1,7 @@
 #include <init_array.h>
 #include <compsets.h>
+#include <parsing_from_console.h>
+#include <arrays.h>
 
 /*
 module1: input
@@ -41,5 +43,11 @@ module2: comparing
 
 int main() {
     int_duple_dynamic_array_t arr = get_array_from_console();
+    for (int i = 0; i < arr.size; i++) {
+        for (int j = 0; j < arr.container[i].size; j++) {
+            printf("%i ", arr.container[i].container[j]);
+        }
+        printf("\n");
+    }
     return 0;
 }
