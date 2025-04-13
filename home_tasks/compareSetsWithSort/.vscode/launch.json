@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Build/Debug/compare_sets",
+            "program": "${workspaceFolder}/Build/Test/test_init_array",
             "args": [],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
