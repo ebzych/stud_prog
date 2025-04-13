@@ -35,5 +35,5 @@ arrays.o: lib/arrays.c
 
 test:
 	$(CC) $(CFLAGS) $(LIBS) tests/test_input.c \
-		lib/compsets.c lib/init_array.c lib/parsing_from_console.c \
+		lib/compsets.c lib/simple_input.c \
 		lib/arrays.c $(UNIT_TESTS) -lm -o $(TEST_OUTPUT)
