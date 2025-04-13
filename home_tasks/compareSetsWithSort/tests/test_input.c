@@ -1,18 +1,10 @@
 #include <unity.h>
 #include <compsets.h>
-#include <parsing_from_console.h>
+#include <simple_input.h>
+#include <stdbool.h>
 
 void setUp() {}
 void tearDown() {}
-
-// bool check_duple_array(int_duple_dynamic_array_t *array) {
-//     if (array->container[0].container[0] != 2
-//         || array->container[0].container[1] != 1
-//         || array->container[1].container[0] != 1)
-//         { return false; }
-
-//     return true;
-// }
 
 // void test__CountItems_NumberElementsFromString() {
 //     char *str1 = "<2,1>";
@@ -79,8 +71,51 @@ int_duple_dynamic_array_t *create_array() {
     return arr;
 }
 
+bool check_trivial_duple_array(int_duple_dynamic_array_t *array) {
+    int arr[3];
+
+    // add element to 'arr[]'
+    int ind = 0;
+    for (int i = 0; i < array->size; i++) {
+        for (int j = 0; j < array->container[i].size; j++) {
+            // check that '2' belong in subarray with size 2
+            if (array->container[i].container[j] == 2) {
+                if (array->container[i].size != 2) {
+                    return false;
+                }
+            }
+
+            arr[ind] = array->container[i].container[j];
+            ind++;
+        }
+    }
+
+    // special comparator
+    int comp_int(const void* a, const void* b)
+        { return *(int *)a < *(int *)b ? -1 : 1; }
+
+    qsort(&arr, sizeof(arr) / sizeof(int), sizeof(int), comp_int);
+
+    // compare content array
+    int expected[] = { 1, 1, 2 };
+    for (int i = 0; i < 3; i++) {
+        if (arr[i] != expected[i])
+            { return false; }
+    }
+
+    return true;
+}
+
+void test_CreateDDArrayFromArray_InputTrivialArray_ReturnCorrect() {
+    int_duple_dynamic_array_t arr;
+    int template_arr[] = { 2, 2, 2, 1, 1, 1 };
+    arr = create_DDarray_from_array(template_arr);
+    TEST_ASSERT_TRUE(check_trivial_duple_array(&arr));
+}
+
 int main() {
     UNITY_BEGIN();
+    RUN_TEST(test_CreateDDArrayFromArray_InputTrivialArray_ReturnCorrect);
     // RUN_TEST(test_NumberBeforeCommaOrIncorrectInput_GetNumberFromStr_ReturnNumberOrError);
     // RUN_TEST(test__CountItems_NumberElementsFromString);
     UNITY_END();
