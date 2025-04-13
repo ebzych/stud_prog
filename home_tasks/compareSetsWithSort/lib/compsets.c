@@ -1,4 +1,7 @@
 #include <compsets.h>
+#include <arrays.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 int comp_one_dim_array(const void *first_num, const void *second_num) {
     int *first = (int *)first_num;
@@ -32,7 +35,7 @@ int comp_two_dim_array(const void *first_arr, const void *second_arr) {
 void sort_subarrays(int_duple_dynamic_array_t *array) {
     for (int i = 0; i < array->size; i++) {
         size_t size = array->container[i].size;
-        int_dynamic_array_t *arr = &array->container[i];
+        int_dynamic_array_t *arr = get_subarray(array, i);
         qsort(arr->container, size, sizeof(int), comp_one_dim_array);
     }
 }
@@ -54,12 +57,12 @@ bool multisets_are_equal(int_duple_dynamic_array_t * first,
     sort_array(second);
 
     for (int i = 0; i < first->size; i++) {
-        if (first->container[i].size != second->container[i].size)
+        if (get_subarray(first, i)->size != get_subarray(second, i)->size)
             { return false; }
 
         for (int j = 0; j < first->container[i].size; j++) {
-            int_array_t arr1 = first->container[i].container;
-            int_array_t arr2 = second->container[i].container;
+            int_array_t arr1 = get_subarray(first, i)->container;
+            int_array_t arr2 = get_subarray(second, i)->container;
             if (arr1[j] != arr2[j])
                 { return false; }
         }

@@ -1,6 +1,14 @@
 {
     "files.associations": {
         "arrays.h": "c",
-        "parsing_from_console.h": "c"
-    }
+        "parsing_from_console.h": "c",
+        "init_array.h": "c",
+        "array": "c",
+        "initializer_list": "c",
+        "type_traits": "c",
+        "stdio.h": "c",
+        "stdarg.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled",
+    "workbench.settings.openDefaultKeybindings": false
 }
