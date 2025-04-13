@@ -1,4 +1,7 @@
 #include <compsets.h>
+#include <arrays.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 int comp_one_dim_array(const void *first_num, const void *second_num) {
     int *first = (int *)first_num;

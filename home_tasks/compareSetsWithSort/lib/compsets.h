@@ -1,7 +1,6 @@
 #ifndef COMPSETS
 #define COMPSETS
 
-#include <includes.h>
 #include <arrays.h>
 
 int comp_one_dim_array(const void *first, const void *second);

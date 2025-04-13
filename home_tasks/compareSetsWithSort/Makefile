@@ -1,6 +1,6 @@
 CC = gcc
 LIBS = -I ~/Documents/stud_prog/unity_tests/Unity/src -I lib
-CFLAGS = -g
+CFLAGS = -g -O0
 
 SOURCES = sources/*.c
 OBJ = arrays.o simple_input.o parsing_from_console.o init_array.o compsets.o
@@ -11,11 +11,12 @@ TEST_OUTPUT = Build/Test/test_init_array
 
 UNIT_TESTS = ~/Documents/stud_prog/unity_tests/Unity/src/unity.c
 
-clean: all
+clean:
 	rm -rf $(OBJ)
 
 all: $(OBJ)
 	$(CC) $(CFLAGS) $(LIBS) $(OBJ) $(SOURCES) -lm -o $(DEBUG_OUTPUT)
+	rm -rf $(OBJ)
 
 compsets.o: lib/compsets.c
 	$(CC) $(CFLAGS) $(LIBS) lib/compsets.c -lm -c
