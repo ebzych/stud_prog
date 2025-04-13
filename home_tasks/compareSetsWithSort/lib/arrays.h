@@ -1,9 +1,7 @@
 #ifndef ARRAYS
 #define ARRAYS
 
-#include <includes.h>
-#include <parsing_from_console.h>
-#include <init_array.h>
+#include <stdlib.h>
 
 typedef int * int_array_t;
 
@@ -19,5 +17,9 @@ typedef struct int_duple_dynamic_array {    // two-dimension dynamic array of in
 
 int_duple_dynamic_array_t get_array_from_console();
 int_dynamic_array_t *get_subarray(int_duple_dynamic_array_t *array, int index);
+void print_array(int_duple_dynamic_array_t *arr);
+void allocate_array(int_duple_dynamic_array_t *array);
+void allocate_subarray(int_dynamic_array_t *array);
+int free_array(int_duple_dynamic_array_t *array);
 
 #endif //ARRAYS
