@@ -2,6 +2,7 @@
 #define COMPSETS
 
 #include <arrays.h>
+#include <stdbool.h>
 
 int comp_one_dim_array(const void *first, const void *second);
 int comp_two_dim_array(const void *first_arr, const void *second_arr);

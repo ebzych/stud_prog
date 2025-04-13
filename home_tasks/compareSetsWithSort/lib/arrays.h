@@ -1,6 +1,8 @@
 #ifndef ARRAYS
 #define ARRAYS
 
+#include <stdlib.h>
+
 typedef int * int_array_t;
 
 typedef struct int_dynamic_array {  // one-dimension dynamic array of int with size
