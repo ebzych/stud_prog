@@ -61,28 +61,28 @@ void test_NumberBeforeCommaOrIncorrectInput_GetNumberFromStr_ReturnNumberOrError
 
 void test_CreateDDArrayFromArray_InputTrivialArray_ReturnCorrect() {
     int_duple_dynamic_array_t arr;
-    int template_arr[] = { 2,        2, 2,1,  1, 1 };
-    arr = create_DDarray_from_array(template_arr);
+    int template_arr[] = { 2,   2, 2,1,  1, 1 };
+    arr = create_DDarray_from_array(&template_arr);
     TEST_ASSERT_TRUE(check_trivial_duple_array(&arr));
 }
 
 void test_MultisetsAreEqual_ItemsSwappedInSubarrays_True() {
     int template_1[] = { 2,    2,  2,1,  1, 5 };
     int template_2[] = { 2,    2,  1,2,  1, 5 };
-    int_duple_dynamic_array_t arr1 = create_DDarray_from_array(template_1);
-    int_duple_dynamic_array_t arr2 = create_DDarray_from_array(template_2);
+    int_duple_dynamic_array_t arr1 = create_DDarray_from_array(&template_1);
+    int_duple_dynamic_array_t arr2 = create_DDarray_from_array(&template_2);
     TEST_ASSERT_TRUE(multisets_are_equal(&arr1, &arr2));
 
     int template_3[] = { 2,    3,  2,5,6,  2, 5,4 };
     int template_4[] = { 2,    3,  5,2,6,  2, 4,5 };
-    arr1 = create_DDarray_from_array(template_3);
-    arr2 = create_DDarray_from_array(template_4);
+    arr1 = create_DDarray_from_array(&template_3);
+    arr2 = create_DDarray_from_array(&template_4);
     TEST_ASSERT_TRUE(multisets_are_equal(&arr1, &arr2));
 
     int template_5[] = { 3,    4,  3,1,2,1,  1, 5,   3,  2,10,1 };
     int template_6[] = { 3,    4,  1,1,2,3,  1, 5,    3,  10,1,2 };
-    arr1 = create_DDarray_from_array(template_5);
-    arr2 = create_DDarray_from_array(template_6);
+    arr1 = create_DDarray_from_array(&template_5);
+    arr2 = create_DDarray_from_array(&template_6);
     TEST_ASSERT_TRUE(multisets_are_equal(&arr1, &arr2));
 
     free_array(&arr1);
@@ -102,8 +102,8 @@ void test_MultisetsAreEqual_SubarraysSwappedInArray_True() {
     arr2 = create_DDarray_from_array(&template_4);
     TEST_ASSERT_TRUE(multisets_are_equal(&arr1, &arr2));
 
-    int template_5 = { 3,    1, 5,    4,  1,1,2,3,   3,  2,10,1 };
-    int template_6 = { 3,    4,  1,1,2,3,  1, 5,    3,  2,10,1 };
+    int template_5[] = { 3,    1, 5,    4,  1,1,2,3,   3,  2,10,1 };
+    int template_6[] = { 3,    4,  1,1,2,3,  1, 5,    3,  2,10,1 };
     arr1 = create_DDarray_from_array(&template_5);
     arr2 = create_DDarray_from_array(&template_6);
     TEST_ASSERT_TRUE(multisets_are_equal(&arr1, &arr2));
