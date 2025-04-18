@@ -2,6 +2,7 @@
 #include <arrays.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 int comp_one_dim_array(const void *first_num, const void *second_num) {
     int *first = (int *)first_num;
@@ -14,7 +15,7 @@ int comp_two_dim_array(const void *first_arr, const void *second_arr) {
     int i = 0;
     const int_dynamic_array_t *first = first_arr;
     const int_dynamic_array_t *second = second_arr;
-    while (i < first->size && i < second->size &&
+    while (i - 1 < first->size && i - 1 < second->size &&
             first->container[i] == second->container[i])
         { i++; }
 
@@ -42,6 +43,13 @@ void sort_subarrays(int_duple_dynamic_array_t *array) {
 
 void sort_array(int_duple_dynamic_array_t *array) {
     qsort(array->container, array->size, sizeof(int_dynamic_array_t), comp_two_dim_array);
+    // for (int i = 0; i < array->size; i++) {
+    //     for (int j = 0; j < array->container[i].size; j++) {
+    //         printf("%i ", array->container[i].container[j]);
+    //     }
+
+    //     printf("\n");
+    // }
 }
 
 bool multisets_are_equal(int_duple_dynamic_array_t * first,
