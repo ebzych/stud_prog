@@ -7,7 +7,9 @@
         "initializer_list": "c",
         "type_traits": "c",
         "stdio.h": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "unity_fixture.h": "c",
+        "support_functions.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "workbench.settings.openDefaultKeybindings": false
