@@ -1,7 +1,7 @@
 {
-    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "unity_fixture.h": "c",
-        "unity.h": "c"
+        "unity.h": "c",
+        "unity_fixture.h" : "c"
     }
 }
