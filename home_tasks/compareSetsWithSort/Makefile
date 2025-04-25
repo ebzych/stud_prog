@@ -10,13 +10,25 @@ DEBUG_OUTPUT = Build/Debug/compare_sets
 TEST_OUTPUT = Build/Test/test_init_array
 
 UNIT_TESTS = ~/Documents/stud_prog/unity_tests/Unity/src/unity.c
+UNITY_FIXTURE_ADDON = ~/Documents/stud_prog/unity_tests/Unity/extras/fixture/src/unity_fixture.c
+UNITY_MEMORY_ADDON = ~/Documents/stud_prog/unity_tests/Unity/extras/memory/src/unity_memory.c
 
 clean:
 	rm -rf $(OBJ)
 
-all: $(OBJ)
+
+debug: debug_build clean
+
+debug_build: $(OBJ)
 	$(CC) $(CFLAGS) $(LIBS) $(OBJ) $(SOURCES) -lm -o $(DEBUG_OUTPUT)
-	rm -rf $(OBJ)
+
+
+test: test_build clean
+
+test_build:
+	$(CC) $(CFLAGS) $(LIBS) lib/*.c tests/*.c \
+	$(UNIT_TESTS) $(UNITY_FIXTURE_ADDON) $(UNITY_MEMORY_ADDON) -lm -o $(TEST_OUTPUT)
+
 
 compsets.o: lib/compsets.c
 	$(CC) $(CFLAGS) $(LIBS) lib/compsets.c -lm -c
@@ -32,8 +44,3 @@ simple_input.o: lib/simple_input.c
 
 arrays.o: lib/arrays.c
 	$(CC) $(CFLAGS) $(LIBS) lib/arrays.c -lm -c
-
-test:
-	$(CC) $(CFLAGS) $(LIBS) tests/test_input.c tests/support_functions.c \
-		lib/compsets.c lib/simple_input.c \
-		lib/arrays.c $(UNIT_TESTS) -lm -o $(TEST_OUTPUT)
