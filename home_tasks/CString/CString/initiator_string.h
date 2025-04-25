@@ -1,5 +1,5 @@
-#ifndef INIT_STRING
-#define INIT_STRING
+#ifndef INIT_STR
+#define INIT_STR
 
 #include "string_t.h"
 #include <stdlib.h>
@@ -9,4 +9,4 @@ void init_string_spsp(string_t *to, string_t *from);
 void init_string_sps(string_t *to, string_t from);
 size_t strlen(const char *string);
 
-#endif //INIT_STRING
+#endif //INIT_STR
