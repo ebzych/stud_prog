@@ -4,6 +4,13 @@
 #include "string_t.h"
 #include <stdlib.h>
 
+#define INIT_STRING(a, b) _Generic( (b), \
+        const char * : init_string_spccp, \
+        char *       : init_string_spccp,  \
+        string_t *   : init_string_spsp,    \
+        string_t     : init_string_sps       \
+    )(a, b)
+
 void init_string_spccp(string_t *to, const char *from);
 void init_string_spsp(string_t *to, string_t *from);
 void init_string_sps(string_t *to, string_t from);

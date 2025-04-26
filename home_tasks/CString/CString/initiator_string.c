@@ -1,12 +1,6 @@
 #include "initiator_string.h"
 #include "string_t.h"
 
-#define INIT_STRING(a, b) _Generic( (b), \
-        const char * : init_string_spccp, \
-        char *       : init_string_spccp,  \
-        string_t *   : init_string_spsp,    \
-        string_t     : init_string_sps       \
-    )(a, b)
 
 void init_string_spccp(string_t *to, const char *from) {
     to->str = from;

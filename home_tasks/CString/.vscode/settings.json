@@ -2,6 +2,14 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "unity.h": "c",
-        "unity_fixture.h" : "c"
-    }
+        "unity_fixture.h": "c",
+        "string": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/bzychkin/Documents/stud_prog/home_tasks/CString/build/Test",
+            "binaryPath": "/home/bzychkin/Documents/stud_prog/home_tasks/CString/build/Test/test_CString",
+            "binaryArgs": []
+        }
+    ]
 }

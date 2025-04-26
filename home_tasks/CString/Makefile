@@ -12,6 +12,11 @@ clean:
 	rm -rf $(OBJ)
 
 
+debug: debug_build clean
+
+debug_build:
+	$(CC) $(CFLAGS) $(LIB) CString/*.c sources/*.c -lm -o build/Debug/debug_CString
+
 test: test_build clean
 
 test_build:

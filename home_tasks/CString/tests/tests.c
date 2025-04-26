@@ -1,7 +1,7 @@
 #include "../../../unity_tests/Unity/extras/fixture/src/unity_fixture.h"
 
 void run_all_tests() {
-    return;
+    RUN_TEST_GROUP(CountingStringLength);
 }
 
 int main(int argc, const char *argv) {
