@@ -4,12 +4,12 @@
 #include "string_t.h"
 #include <stdbool.h>
 
-#define INIT_STRING(a, b) _Generic( (b), \
+#define strcmp(first, second) _Generic( (second), \
         const char * : strcmp_spccp,      \
-        char *       : strcmp_spccp,       \
+        char *       : strcmp_spcp,       \
         string_t *   : strcmp_spsp,         \
         string_t     : strcmp_sps            \
-    )(a, b)
+    )(first, second)
 
 bool strcmp_spccp(string_t *first, const char *second);
 bool strcmp_spsp(string_t *first, string_t *second);
