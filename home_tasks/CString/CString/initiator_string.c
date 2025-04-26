@@ -15,6 +15,7 @@ void init_string_sps(string_t *to, string_t from) {
     init_string_spccp(to, from.str);
 }
 
+
 size_t strlen(const char *string) {
     size_t count = 0;
     while (string[count] != '\0') {

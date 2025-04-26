@@ -3,7 +3,8 @@
     "files.associations": {
         "unity.h": "c",
         "unity_fixture.h": "c",
-        "string": "c"
+        "string": "c",
+        "big_strings.h": "c"
     },
     "makefile.launchConfigurations": [
         {

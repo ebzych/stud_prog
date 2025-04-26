@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Og
+CFLAGS = -g -O0
 LIB = -ICString -I "../../unity_tests/Unity/src" -I "../../unity_tests/Unity/extras/fixture/src" -I "../../unity_tests/Unity/extras/memory/src"
 SOURCE = CString/*.c
 OBJ = *.o
