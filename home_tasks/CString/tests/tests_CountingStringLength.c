@@ -12,11 +12,16 @@ TEST_TEAR_DOWN(CountingStringLength)
 }
 
 TEST(CountingStringLength, SimpleString) {
-    static const char *string = "Hello World!\0";
+    const char *string = "Hello World!";
     TEST_ASSERT_EQUAL(12, strlen(string));
 }
 
 TEST(CountingStringLength, NullString) {
-    static const char *string = "\0";
+    const char *string = "\0";
     TEST_ASSERT_EQUAL(0, strlen(string));
+}
+
+TEST(CountingStringLength, NullPointer) {
+    char *string = NULL;
+    TEST_ASSERT_EQUAL(-1, strlen(string));
 }

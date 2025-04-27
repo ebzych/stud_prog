@@ -7,5 +7,6 @@ void run_all_tests() {
 }
 
 int main(int argc, const char *argv) {
+    setbuf(stdout, NULL);
     return UnityMain(argc, &argv, run_all_tests);
 }

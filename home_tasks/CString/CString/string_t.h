@@ -5,7 +5,7 @@
 
 typedef struct string {
     size_t length;
-    const char *str;
+    char *str;
 } string_t;
 
 #endif //CSTRING
