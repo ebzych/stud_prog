@@ -52,15 +52,16 @@ void memcpy_cp(string_t *string, char *cstring) {
     } else {
         if (string->allocated == 0) {
             string->str = malloc(length + 1);
+            string->allocated = length + 1;
         }
         else if (length >= string->allocated) {
             string->str = realloc(string->str, length + 1);
+            string->allocated = length + 1;
         }
-        string->allocated = length + 1;
-        string->length = length;
         for (int i = 0; i < length + 1; ++i) {
             string->str[i] = cstring[i];
         }
+        string->length = length;
     }
 }
 
