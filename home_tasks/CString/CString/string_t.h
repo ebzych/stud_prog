@@ -3,8 +3,8 @@
 
 #include <stdlib.h>
 
-typedef struct string {
-    size_t length;
+typedef struct {
+    int length;         // string size; contain -1 if 'str' contain NULL
     char *str;
     size_t allocated;
 } string_t;

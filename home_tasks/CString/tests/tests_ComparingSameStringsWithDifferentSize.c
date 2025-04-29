@@ -14,7 +14,7 @@ TEST_TEAR_DOWN(ComparingStrings)
 
 TEST(ComparingStrings, InputSameStringsWithDifferentSize) {
     string_t first, second;
-    strinit(&first, "Hello World!");
-    strinit(&second, "Hello World");
-    TEST_ASSERT_FALSE(strcmp(&first, &second));
+    str_init(&first, "Hello World!");
+    str_init(&second, "Hello World");
+    TEST_ASSERT_FALSE(str_cmp(&first, &second));
 }

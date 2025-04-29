@@ -1,5 +1,6 @@
 #include "initiator_string.h"
 #include "string_t.h"
+#include <memory.h>
 
 int strlen_cp(char *cstring) {
     if (cstring == NULL) {
@@ -24,28 +25,28 @@ int strlen_sp(string_t *string) {
 
 void init_string_spcp(string_t *to, char *from) {
     to->allocated = 0;
-    memcpy(to, from);
+    str_cpy(to, from);
 }
 
 void init_string_spccp(string_t *to, const char *from) {
     to->allocated = 0;
-    memcpy(to, (char *)from);
+    str_cpy(to, (char *)from);
 }
 
 void init_string_spsp(string_t *to, string_t *from) {
     to->allocated = 0;
-    memcpy(to, from);
+    str_cpy(to, from);
 }
 
 void init_string_sps(string_t *to, string_t from) {
     to->allocated = 0;
-    memcpy(to, &from);
+    str_cpy(to, &from);
 }
 
 /*---------------------------------------------------------*/
 
-void memcpy_cp(string_t *string, char *cstring) {
-    int length = strlen(cstring);
+void strcpy_cp(string_t *string, char *cstring) {
+    int length = str_len(cstring);
     if (length == -1) {                             // if 'second' is NULL
         string->str = NULL;
         string->length = -1;
@@ -58,17 +59,16 @@ void memcpy_cp(string_t *string, char *cstring) {
             string->str = realloc(string->str, length + 1);
             string->allocated = length + 1;
         }
-        for (int i = 0; i < length + 1; ++i) {
-            string->str[i] = cstring[i];
-        }
+        memcpy(string->str, cstring, length + 1);
         string->length = length;
+        string->str[length] = '\0';
     }
 }
 
-void memcpy_ccp(string_t *string, const char *cstring) {
-    memcpy_cp(string, (char *)cstring);
+void strcpy_ccp(string_t *string, const char *cstring) {
+    strcpy_cp(string, (char *)cstring);
 }
 
-void memcpy_sp(string_t *first, string_t *second) {
-    memcpy_cp(first, second->str);
+void strcpy_sp(string_t *first, string_t *second) {
+    strcpy_cp(first, second->str);
 }

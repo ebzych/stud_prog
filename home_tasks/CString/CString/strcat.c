@@ -1,28 +1,31 @@
 #include <strcat.h>
 #include <initiator_string.h>
 #include <stdlib.h>
+#include <memory.h>
 
 string_t strcat_cp(string_t *to, char *from) {
-    int length = strlen(to) + strlen(from);
-    if (length <= -1) {                             // if 'first' or 'second' is NULL
+    int start = str_len(to);
+    int length = str_len(from);
+    if (to->str != NULL && from != NULL) {
+        to->str = memcpy(to->str + start, from, length) - start;
+        to->length = length += start;
+        to->str[length] = '\0';
+        to->allocated = to->allocated < length ? length : to->allocated;
+    } else {
         to->str = NULL;
         to->length = -1;
-    } else {
-        if (to->allocated == 0) {
-            to->str = malloc(length + 1);
-            to->allocated = length + 1;
-        }
-        else if (length >= to->allocated) {
-            to->str = realloc(to->str, length + 1);
-            to->allocated = length + 1;
-        }
-        for (int i = 0; i < length + 1; ++i) {
-            to->str[i] = from[i];
-        }
-        to->length = length;
     }
     return *to;
 }
-string_t strcat_ccp(string_t *to, const char *from);
-string_t strcat_sp(string_t *to, string_t *from) { }
-string_t strcat_s(string_t *to, string_t from);
+
+string_t strcat_ccp(string_t *to, const char *from) {
+    return strcat_cp(to, (char *)from);
+}
+
+string_t strcat_sp(string_t *to, string_t *from) {
+    return strcat_cp(to, from->str);
+}
+
+string_t strcat_s(string_t *to, string_t from) {
+    return strcat_cp(to, from.str);
+}

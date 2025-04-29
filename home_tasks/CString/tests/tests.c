@@ -5,6 +5,7 @@ void run_all_tests() {
     RUN_TEST_GROUP(InitializationOfString);
     RUN_TEST_GROUP(CreatingBigStrings);
     RUN_TEST_GROUP(ComparingStrings);
+    RUN_TEST_GROUP(ConcatenatingStrings);
 }
 
 int main(int argc, const char *argv) {

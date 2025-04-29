@@ -3,7 +3,7 @@
 
 #include <string_t.h>
 
-#define strcat(to, from) _Generic( (from), \
+#define str_cat(to, from) _Generic( (from),\
         char *       : strcat_cp,           \
         const char * : strcat_ccp,           \
         string_t *   : strcat_sp,             \

@@ -5,7 +5,7 @@
 char get_random_char() {
     static const int ALPHABET_SIZE = 256;
     srand(clock());
-    return 1 + rand() % (ALPHABET_SIZE - 1);
+    return 1 + (size_t)rand() % (ALPHABET_SIZE - 1);
 }
 
 //  Return C-string size 'number_of_letter' if memory can be allocated else NULL 

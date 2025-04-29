@@ -22,3 +22,8 @@ TEST_GROUP_RUNNER(CreatingBigStrings) {
 TEST_GROUP_RUNNER(ComparingStrings) {
     RUN_TEST_CASE(ComparingStrings, InputSameStringsWithDifferentSize);
 }
+
+TEST_GROUP_RUNNER(ConcatenatingStrings) {
+    RUN_TEST_CASE(ConcatenatingStrings, SimpleInputReturnCorrectStringAndLength);
+    RUN_TEST_CASE(ConcatenatingStrings, InputBigStringReturnCorrectStringAndLengthAndAddress);
+}

@@ -4,7 +4,7 @@
 #include "string_t.h"
 #include <stdbool.h>
 
-#define strcmp(first, second) _Generic( (second), \
+#define str_cmp(first, second) _Generic( (second), \
         const char * : strcmp_spcp,                \
         char *       : strcmp_spcp,                 \
         string_t *   : strcmp_spsp,                  \
