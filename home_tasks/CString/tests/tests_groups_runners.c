@@ -18,3 +18,7 @@ TEST_GROUP_RUNNER(CreatingBigStrings) {
     RUN_TEST_CASE(CreatingBigStrings,
         Creating10000Symbols_NotSegFaultOrOverheadMemoryUsing);
 }
+
+TEST_GROUP_RUNNER(ComparingStrings) {
+    RUN_TEST_CASE(ComparingStrings, InputSameStringsWithDifferentSize);
+}

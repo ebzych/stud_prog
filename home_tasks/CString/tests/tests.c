@@ -4,6 +4,7 @@ void run_all_tests() {
     RUN_TEST_GROUP(CountingStringLength);
     RUN_TEST_GROUP(InitializationOfString);
     RUN_TEST_GROUP(CreatingBigStrings);
+    RUN_TEST_GROUP(ComparingStrings);
 }
 
 int main(int argc, const char *argv) {

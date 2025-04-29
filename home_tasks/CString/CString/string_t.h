@@ -8,4 +8,6 @@ typedef struct string {
     char *str;
 } string_t;
 
+// const string_t NULL_STRING = { .str = "", .length = 0 };
+
 #endif //CSTRING
