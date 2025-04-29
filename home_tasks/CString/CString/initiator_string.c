@@ -2,7 +2,7 @@
 #include "string_t.h"
 #include <memory.h>
 
-int strlen_cp(char *cstring) {
+int strlen_ccp(const char *cstring) {
     if (cstring == NULL) {
         return -1;
     }
@@ -13,24 +13,15 @@ int strlen_cp(char *cstring) {
     return count;
 }
 
-int strlen_ccp(const char *cstring) {
-    strlen_cp((char *)cstring);
-}
-
 int strlen_sp(string_t *string) {
-    strlen_cp(string->str);
+    strlen_ccp(string->str);
 }
 
 /*---------------------------------------------------------*/
 
-void init_string_spcp(string_t *to, char *from) {
-    to->allocated = 0;
-    str_cpy(to, from);
-}
-
 void init_string_spccp(string_t *to, const char *from) {
     to->allocated = 0;
-    str_cpy(to, (char *)from);
+    str_cpy(to, from);
 }
 
 void init_string_spsp(string_t *to, string_t *from) {
@@ -45,7 +36,7 @@ void init_string_sps(string_t *to, string_t from) {
 
 /*---------------------------------------------------------*/
 
-void strcpy_cp(string_t *string, char *cstring) {
+void strcpy_ccp(string_t *string, const char *cstring) {
     int length = str_len(cstring);
     if (length == -1) {                             // if 'second' is NULL
         string->str = NULL;
@@ -65,10 +56,6 @@ void strcpy_cp(string_t *string, char *cstring) {
     }
 }
 
-void strcpy_ccp(string_t *string, const char *cstring) {
-    strcpy_cp(string, (char *)cstring);
-}
-
 void strcpy_sp(string_t *first, string_t *second) {
-    strcpy_cp(first, second->str);
+    strcpy_ccp(first, second->str);
 }

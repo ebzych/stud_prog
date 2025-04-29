@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <memory.h>
 
-string_t strcat_cp(string_t *to, char *from) {
+string_t strcat_ccp(string_t *to, const char *from) {
     int start = str_len(to);
     int length = str_len(from);
     if (to->str != NULL && from != NULL) {
@@ -18,14 +18,10 @@ string_t strcat_cp(string_t *to, char *from) {
     return *to;
 }
 
-string_t strcat_ccp(string_t *to, const char *from) {
-    return strcat_cp(to, (char *)from);
-}
-
 string_t strcat_sp(string_t *to, string_t *from) {
-    return strcat_cp(to, from->str);
+    return strcat_ccp(to, from->str);
 }
 
 string_t strcat_s(string_t *to, string_t from) {
-    return strcat_cp(to, from.str);
+    return strcat_ccp(to, from.str);
 }

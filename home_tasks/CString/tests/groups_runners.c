@@ -27,3 +27,9 @@ TEST_GROUP_RUNNER(ConcatenatingStrings) {
     RUN_TEST_CASE(ConcatenatingStrings, SimpleInputReturnCorrectStringAndLength);
     RUN_TEST_CASE(ConcatenatingStrings, InputBigStringReturnCorrectStringAndLengthAndAddress);
 }
+
+TEST_GROUP_RUNNER(SubstringSelection) {
+    RUN_TEST_CASE(SubstringSelection, SelectPartOfString);
+    RUN_TEST_CASE(SubstringSelection, SelectFullString);
+    RUN_TEST_CASE(SubstringSelection, SelectMoreThanPossible);
+}
