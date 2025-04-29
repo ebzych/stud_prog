@@ -9,6 +9,11 @@ typedef struct {
     size_t allocated;   // info about allocated bytes for 'str' which we know exactly
 } string_t;
 
+typedef struct {
+    size_t size;
+    string_t *container;
+} substrings_array_t;
+
 // const string_t NULL_STRING = { .str = "", .length = 0 };
 
 #endif //CSTRING

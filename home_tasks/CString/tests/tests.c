@@ -7,6 +7,7 @@ void run_all_tests() {
     RUN_TEST_GROUP(ComparingStrings);
     RUN_TEST_GROUP(ConcatenatingStrings);
     RUN_TEST_GROUP(SubstringSelection);
+    RUN_TEST_GROUP(SeparatingString);
 }
 
 int main(int argc, const char *argv) {

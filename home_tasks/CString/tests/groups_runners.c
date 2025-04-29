@@ -33,3 +33,7 @@ TEST_GROUP_RUNNER(SubstringSelection) {
     RUN_TEST_CASE(SubstringSelection, SelectFullString);
     RUN_TEST_CASE(SubstringSelection, SelectMoreThanPossible);
 }
+
+TEST_GROUP_RUNNER(SeparatingString) {
+    RUN_TEST_CASE(SeparatingString, InputStringWithNeededSymbolReturnCorrectArrayWithSubstrings);
+}
