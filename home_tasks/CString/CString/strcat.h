@@ -1,0 +1,18 @@
+#ifndef STRCAT
+#define STRCAT
+
+#include <string_t.h>
+
+#define strcat(to, from) _Generic( (from), \
+        char *       : strcat_cp,           \
+        const char * : strcat_ccp,           \
+        string_t *   : strcat_sp,             \
+        string_t     : strcat_s                \
+    )(to, from)
+
+string_t strcat_cp(string_t *to, char *from);
+string_t strcat_ccp(string_t *to, const char *from);
+string_t strcat_sp(string_t *to, string_t *from);
+string_t strcat_s(string_t *to, string_t from);
+
+#endif  //STRCAT
