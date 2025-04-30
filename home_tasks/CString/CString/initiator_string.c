@@ -59,3 +59,12 @@ void strcpy_ccp(string_t *string, const char *cstring) {
 void strcpy_sp(string_t *first, string_t *second) {
     strcpy_ccp(first, second->str);
 }
+
+void strfree_s(string_t string) {
+    free(string.str);
+}
+
+void strfree_sp(string_t *string) {
+    free(string->str);
+    free(string);
+}

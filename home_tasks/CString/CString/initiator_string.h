@@ -31,6 +31,11 @@
         string_t *   : strcpy_sp                        \
     )(string, cstring)
 
+#define str_free(string) _Generic( (string), \
+        string_t *  : strfree_sp,             \
+        string_t    : strfree_s                \
+    )(string)
+
 void init_string_spccp(string_t *to, const char *from);
 void init_string_spsp(string_t *to, string_t *from);
 void init_string_sps(string_t *to, string_t from);
@@ -38,5 +43,7 @@ int strlen_ccp(const char *string);
 int strlen_sp(string_t *string);
 void strcpy_ccp(string_t *string, const char *cstring);
 void strcpy_sp(string_t *string, string_t *cstring);
+void strfree_sp(string_t *string);
+void strfree_s(string_t string);
 
 #endif //INIT_STR

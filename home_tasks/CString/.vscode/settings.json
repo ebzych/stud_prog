@@ -6,7 +6,13 @@
         "string": "c",
         "big_strings.h": "c",
         "string_t.h": "c",
-        "memory.h": "c"
+        "memory.h": "c",
+        "array": "c",
+        "deque": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "string_view": "c",
+        "initializer_list": "c"
     },
     "makefile.launchConfigurations": [
         {

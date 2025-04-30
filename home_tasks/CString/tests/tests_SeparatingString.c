@@ -20,10 +20,12 @@ TEST(SeparatingString, InputStringWithNeededSymbolReturnCorrectArrayWithSubstrin
     str_init(&string, "Cool string for cool separate function! (bullshit, it so stupid, omg...)");
     char *substrings[] =
         { "Cool", "string", "for", "cool", "separate", "function!", "(bullshit,", "it", "so", "stupid,", "omg...)" };
-    strings_array_t *substrings_t = str_sep(string, " ");
+    strings_array_t *substrings_t = str_sep(&string, ' ');
     bool is_correct = true;
     for (int i = 0; i < substrings_t->size; ++i) {
-        is_correct &&= str_cmp(&substrings_t->container[i], substrings[i]);
+        printf("\n%s", substrings_t->container[i].str);
+        is_correct = is_correct &&
+            str_cmp(&substrings_t->container[i], substrings[i]);
     }
     TEST_ASSERT_TRUE(is_correct);
 }
