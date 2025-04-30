@@ -36,4 +36,5 @@ TEST_GROUP_RUNNER(SubstringSelection) {
 
 TEST_GROUP_RUNNER(SeparatingString) {
     RUN_TEST_CASE(SeparatingString, InputStringWithNeededSymbolReturnCorrectArrayWithSubstrings);
+    RUN_TEST_CASE(SeparatingString, CharIsNotInStringReturnNull);
 }

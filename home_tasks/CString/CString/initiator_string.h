@@ -36,6 +36,11 @@
         string_t    : strfree_s                \
     )(string)
 
+#define free_str_arr(strings_array) _Generic( (strings_array), \
+        strings_array_t *   : freestrarr_sap,                   \
+        strings_array_t     : freestrarr_sa                     \
+    )(strings_array)
+
 void init_string_spccp(string_t *to, const char *from);
 void init_string_spsp(string_t *to, string_t *from);
 void init_string_sps(string_t *to, string_t from);
@@ -45,5 +50,7 @@ void strcpy_ccp(string_t *string, const char *cstring);
 void strcpy_sp(string_t *string, string_t *cstring);
 void strfree_sp(string_t *string);
 void strfree_s(string_t string);
+void freestrarr_sap(strings_array_t *array);
+void freestrarr_sa(strings_array_t array);
 
 #endif //INIT_STR

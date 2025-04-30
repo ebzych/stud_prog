@@ -60,6 +60,8 @@ void strcpy_sp(string_t *first, string_t *second) {
     strcpy_ccp(first, second->str);
 }
 
+/*---------------------------------------------------------*/
+
 void strfree_s(string_t string) {
     free(string.str);
 }
@@ -67,4 +69,15 @@ void strfree_s(string_t string) {
 void strfree_sp(string_t *string) {
     free(string->str);
     free(string);
+}
+
+/*---------------------------------------------------------*/
+
+void freestrarr_sap(strings_array_t *array) {
+    free(array->container);
+    free(array);
+}
+
+void freestrarr_sa(strings_array_t array) {
+    free(array.container);
 }

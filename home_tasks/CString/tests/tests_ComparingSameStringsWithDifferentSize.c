@@ -17,4 +17,6 @@ TEST(ComparingStrings, InputSameStringsWithDifferentSize) {
     str_init(&first, "Hello World!");
     str_init(&second, "Hello World");
     TEST_ASSERT_FALSE(str_cmp(&first, &second));
+    str_free(first);
+    str_free(second);
 }
