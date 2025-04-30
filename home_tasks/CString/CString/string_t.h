@@ -12,7 +12,7 @@ typedef struct {
 typedef struct {
     size_t size;
     string_t *container;
-} substrings_array_t;
+} strings_array_t;
 
 // const string_t NULL_STRING = { .str = "", .length = 0 };
 

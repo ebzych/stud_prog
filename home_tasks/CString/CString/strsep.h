@@ -3,13 +3,17 @@
 
 #include "string_t.h"
 
-#define str_sep(string, ch) _Generic( (string), \
+/*
+    Return substrings of string separated by delimiter
+    Without collision
+*/
+#define str_sep(string, delim) _Generic( (string), \
         string_t *      : strsep_sp,             \
         const char *    : strsep_ccp,             \
         char *          : strsep_ccp               \
-    )(string, ch)
+    )(string, delim)
 
-substrings_array_t strsep_sp(const string_t *string, char ch);
-substrings_array_t strsep_ccp(const char *cstring, char ch);
+substrings_array_t strsep_sp(const string_t *string, const char *delimh);
+substrings_array_t strsep_ccp(const char *cstring, const char *delim);
 
 #endif  //STRSEP
