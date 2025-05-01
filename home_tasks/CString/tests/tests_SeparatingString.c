@@ -47,6 +47,9 @@ TEST(SeparatingString, PowerTest_InputBigStringMeasureLatencyTime) {
     time_t time_start = time(NULL);
     str_sep(big_string, ' ');
     time_t time_end = time(NULL);
-    printf("\n%lf\n", difftime(time_end, time_start));
+    printf("\noperatrion: separating string by character,\
+        \nstring_size: 1_000_000,\
+        \nexec_time: %lf\n", \
+        difftime(time_end, time_start));
     // free(big_string);
 }
