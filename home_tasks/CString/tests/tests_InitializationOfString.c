@@ -35,24 +35,23 @@ TEST(InitializationOfString, InputCharPtr) {
     TEST_ASSERT_EQUAL_CHAR_ARRAY(cstring, string.str, letter_number);
     TEST_ASSERT_EQUAL_INT32(letter_number, string.length + 1);
     str_free(string);
-    free(cstring);
 }
 
 TEST(InitializationOfString, InputStringPtr) {
     string_t string;
     string_t *string_p = malloc(sizeof(string_t));
-    string_p->length = 15;
-    string_p->str = "Santa Clause <3";
+    str_init(string_p, "Santa Clause <3");
     str_init(&string, string_p);
     TEST_ASSERT_EQUAL_CHAR_ARRAY(string_p->str, string.str, string_p->length + 1);
     TEST_ASSERT_EQUAL_INT32(string_p->length, string.length);
     str_free(string);
-    str_free(string_p);
+    free(string_p);
 }
 
 TEST(InitializationOfString, InputString) {
     string_t string;
-    string_t sstring = { .length = 16, .str = "The cake is lie!" };
+    string_t sstring;
+    str_init(&sstring, "The cake is lie");
     str_init(&string, sstring);
     TEST_ASSERT_EQUAL_CHAR_ARRAY(sstring.str, string.str, sstring.length + 1);
     TEST_ASSERT_EQUAL_INT32(sstring.length, string.length);
@@ -68,5 +67,4 @@ TEST(InitializationOfString, InputNullPointer) {
     TEST_ASSERT_NULL(string.str);
     TEST_ASSERT_EQUAL_INT32(letter_number, string.length + 1);
     str_free(string);
-    free(cstring);
 }

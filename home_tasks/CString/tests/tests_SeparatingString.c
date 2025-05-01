@@ -39,6 +39,14 @@ TEST(SeparatingString, CharIsNotInStringReturnNull) {
     free_str_arr(substrings);
 }
 
-TEST(SeparatingString, InputBigString) {
-    
+#include <big_strings.h>
+#include <time.h>
+
+TEST(SeparatingString, PowerTest_InputBigStringMeasureLatencyTime) {
+    char *big_string = create_big_string(1000000);
+    time_t time_start = time(NULL);
+    str_sep(big_string, ' ');
+    time_t time_end = time(NULL);
+    printf("\n%lf\n", difftime(time_end, time_start));
+    // free(big_string);
 }

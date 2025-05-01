@@ -50,7 +50,7 @@ void strcpy_ccp(string_t *string, const char *cstring) {
             string->str = realloc(string->str, length + 1);
             string->allocated = length + 1;
         }
-        memcpy(string->str, cstring, length + 1);
+        string->str = memcpy(string->str, cstring, length + 1);
         string->length = length;
         string->str[length] = '\0';
     }

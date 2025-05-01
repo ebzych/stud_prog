@@ -34,8 +34,8 @@ TEST(ConcatenatingStrings, InputBigStringReturnCorrectStringAndLengthAndAddress)
     str_init(&string_2, big_string_2);
     str_cat(&string_1, &string_2);
     TEST_ASSERT_EQUAL_INT32(20000, str_len(&string_1));
-    str_free(string_1);
-    str_free(string_2);
-    free(big_string_1);
-    free(big_string_2);
+    // str_free(string_1);
+    // str_free(string_2);
+    // free(big_string_1);
+    // free(big_string_2);
 }

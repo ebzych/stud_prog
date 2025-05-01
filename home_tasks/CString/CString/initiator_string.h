@@ -32,7 +32,7 @@
     )(string, cstring)
 
 #define str_free(string) _Generic( (string), \
-        string_t *  : strfree_sp,             \
+        string_t *  : strfree_s,              \
         string_t    : strfree_s                \
     )(string)
 

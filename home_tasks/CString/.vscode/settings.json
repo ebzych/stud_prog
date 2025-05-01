@@ -12,7 +12,10 @@
         "unordered_map": "c",
         "vector": "c",
         "string_view": "c",
-        "initializer_list": "c"
+        "initializer_list": "c",
+        "unity_memory.h": "c",
+        "time.h": "c",
+        "tear_down_messages.h": "c"
     },
     "makefile.launchConfigurations": [
         {
