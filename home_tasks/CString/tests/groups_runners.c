@@ -39,3 +39,9 @@ TEST_GROUP_RUNNER(SeparatingString) {
     RUN_TEST_CASE(SeparatingString, CharIsNotInStringReturnNull);
     RUN_TEST_CASE(SeparatingString, PowerTest_InputBigStringMeasureLatencyTime);
 }
+
+TEST_GROUP_RUNNER(FindFirstAndLatestCharInputInString) {
+    RUN_TEST_CASE(FindFirstAndLatestCharInputInString, FirstInput);
+    RUN_TEST_CASE(FindFirstAndLatestCharInputInString, LatestInput);
+    RUN_TEST_CASE(FindFirstAndLatestCharInputInString, CharNotInStringRetrunNull);
+}

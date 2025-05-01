@@ -8,6 +8,7 @@ void run_all_tests() {
     RUN_TEST_GROUP(ConcatenatingStrings);
     RUN_TEST_GROUP(SubstringSelection);
     RUN_TEST_GROUP(SeparatingString);
+    RUN_TEST_GROUP(FindFirstAndLatestCharInputInString);
 }
 
 int main(int argc, const char *argv) {
