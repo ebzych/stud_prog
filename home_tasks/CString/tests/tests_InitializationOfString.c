@@ -45,7 +45,7 @@ TEST(InitializationOfString, InputStringPtr) {
     TEST_ASSERT_EQUAL_CHAR_ARRAY(string_p->str, string.str, string_p->length + 1);
     TEST_ASSERT_EQUAL_INT32(string_p->length, string.length);
     str_free(string);
-    free(string_p);
+    str_free(*string_p);
 }
 
 TEST(InitializationOfString, InputString) {

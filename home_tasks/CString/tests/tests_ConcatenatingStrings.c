@@ -21,8 +21,8 @@ TEST(ConcatenatingStrings, SimpleInputReturnCorrectStringAndLength) {
     str_cat(&to, &from);
     printf("%s", to.str);
     TEST_ASSERT_TRUE(str_cmp(&to, "Oh, God, save the C!"));
-    str_free(to);
-    str_free(from);
+    // str_free(to);
+    // str_free(from);
 }
 
 //  Important: string have to get correct address in 'str_cat()'
@@ -36,6 +36,6 @@ TEST(ConcatenatingStrings, InputBigStringReturnCorrectStringAndLengthAndAddress)
     TEST_ASSERT_EQUAL_INT32(20000, str_len(&string_1));
     // str_free(string_1);
     // str_free(string_2);
-    // free(big_string_1);
-    // free(big_string_2);
+    free(big_string_1);
+    free(big_string_2);
 }

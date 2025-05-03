@@ -18,5 +18,5 @@ TEST(CreatingBigStrings, Creating10000Symbols_NotSegFaultOrOverheadMemoryUsing) 
     str_init(&string, big_string);
     TEST_ASSERT_EQUAL_INT32(string_size, string.length);
     str_free(string);
-    // free(big_string);
+    free(big_string);
 }
