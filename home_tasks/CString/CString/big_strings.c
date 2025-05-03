@@ -5,17 +5,16 @@
 char get_random_char() {
     static const int ALPHABET_SIZE = 256;
     srand(clock());
-    return 1 + rand() % (ALPHABET_SIZE - 1);
+    return 1 + (size_t)rand() % (ALPHABET_SIZE - 1);
 }
 
 //  Return C-string size 'number_of_letter' if memory can be allocated else NULL 
 char *create_big_string(size_t number_of_letters) {
-    int length = 0;
     char *big_string;
-    if ( (big_string = malloc(1 + number_of_letters)) == NULL) {    // '+ 1' for null-terminator
+    if ( (big_string = malloc((1 + number_of_letters) * sizeof(char))) == NULL) {    // '+ 1' for null-terminator
         return NULL;
     }
-    for (; length < number_of_letters; ++length) {
+    for (int length = 0; length < number_of_letters; ++length) {
         big_string[length] = get_random_char();
     }
     return big_string;

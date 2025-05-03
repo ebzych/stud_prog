@@ -1,16 +1,6 @@
 #include "initiator_string.h"
 #include "string_t.h"
-
-int strlen_cp(char *cstring) {
-    if (cstring == NULL) {
-        return -1;
-    }
-    int count = 0;
-    while (cstring[count] != '\0') {
-        ++count;
-    }
-    return count;
-}
+#include <memory.h>
 
 int strlen_ccp(const char *cstring) {
     if (cstring == NULL) {
@@ -24,87 +14,70 @@ int strlen_ccp(const char *cstring) {
 }
 
 int strlen_sp(string_t *string) {
-    if (string == NULL) {
-        return -1;
-    }
-    return string->length;
+    strlen_ccp(string->str);
 }
 
 /*---------------------------------------------------------*/
 
-void init_string_spcp(string_t *to, char *from) {
-    to->str = malloc(sizeof(char));                 // allocating few bytes because memcpy is used with allocated strings 
-    memcpy(to, from);
-}
-
 void init_string_spccp(string_t *to, const char *from) {
-    to->str = malloc(sizeof(char));                 // allocating few bytes because memcpy is used with allocated strings
-    memcpy(to, from);
+    to->allocated = 0;
+    str_cpy(to, from);
 }
 
 void init_string_spsp(string_t *to, string_t *from) {
-    to->str = malloc(sizeof(char));                 // allocating few bytes because memcpy is used with allocated strings
-    memcpy(to, from);
+    to->allocated = 0;
+    str_cpy(to, from);
 }
 
 void init_string_sps(string_t *to, string_t from) {
-    to->str = malloc(sizeof(char));                 // allocating few bytes because memcpy is used with allocated strings
-    memcpy(to, &from);
+    to->allocated = 0;
+    str_cpy(to, &from);
 }
 
 /*---------------------------------------------------------*/
 
-
-/*
-    Is used for freeing 'string' and copy the 'cstring' content into it
-
-    Note: 'string' have to be allocated
-*/
-void memcpy_ccp(string_t *string, const char *cstring) {
-    int length = strlen(cstring);
-    free(string->str);
-    string->str = NULL;
-    if (length != -1) {                             // if 'second' is NULL
-        string->str = malloc(length + 1);
-    }
-    string->length = length;
-    for (int i = 0; i < length + 1; ++i) {
-        string->str[i] = cstring[i];
-    }
-}
-
-/*
-    Is used for freeing 'string' and copy the 'cstring' content into it
-
-    Note: 'string' have to be allocated
-*/
-void memcpy_cp(string_t *string, char *cstring) {
-    int length = strlen(cstring);
-    free(string->str);
-    string->str = NULL;
-    if (length != -1) {                             // if 'second' is NULL
-        string->str = malloc(length + 1);
-    }
-    string->length = length;
-    for (int i = 0; i < length + 1; ++i) {
-        string->str[i] = cstring[i];
+void strcpy_ccp(string_t *string, const char *cstring) {
+    int length = str_len(cstring);
+    if (length == -1) {                             // if 'second' is NULL
+        string->str = NULL;
+        string->length = -1;
+    } else {
+        if (string->allocated == 0) {
+            string->str = malloc(length + 1);
+            string->allocated = length + 1;
+        }
+        else if (length >= string->allocated) {
+            string->str = realloc(string->str, length + 1);
+            string->allocated = length + 1;
+        }
+        string->str = memcpy(string->str, cstring, length + 1);
+        string->length = length;
+        string->str[length] = '\0';
     }
 }
 
-/*
-    Is used for freeing 'first' and copy the 'second' content into it
+void strcpy_sp(string_t *first, string_t *second) {
+    strcpy_ccp(first, second->str);
+}
 
-    Note: 'first' have to be allocated
-*/
-void memcpy_sp(string_t *first, string_t *second) {
-    int length = second->length;
-    free(first->str);
-    first->str = NULL;
-    if (length != -1) {                             // if 'second' is NULL
-        first->str = malloc(length + 1);
-    }
-    first->length = length;
-    for (int i = 0; i < length + 1; ++i) {
-        first->str[i] = second->str[i];
-    }
+/*---------------------------------------------------------*/
+
+void strfree_s(string_t string) {
+    free(string.str);
+}
+
+void strfree_sp(string_t *string) {
+    free(string->str);
+    free(string);
+}
+
+/*---------------------------------------------------------*/
+
+void freestrarr_sap(strings_array_t *array) {
+    free(array->container);
+    free(array);
+}
+
+void freestrarr_sa(strings_array_t array) {
+    free(array.container);
 }

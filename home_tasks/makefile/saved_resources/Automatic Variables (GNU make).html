@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ --><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.77, last updated 26 February 2023,
+of The GNU Make Manual, for GNU make version 4.4.1.
+
+Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019,
+2020, 2021, 2022, 2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom." -->
+<title>Automatic Variables (GNU make)</title>
+
+<meta name="description" content="Automatic Variables (GNU make)">
+<meta name="keywords" content="Automatic Variables (GNU make)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="https://www.gnu.org/software/make/manual/html_node/index.html" rel="start" title="Top">
+<link href="https://www.gnu.org/software/make/manual/html_node/Concept-Index.html" rel="index" title="Concept Index">
+<link href="https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="https://www.gnu.org/software/make/manual/html_node/Pattern-Rules.html" rel="up" title="Pattern Rules">
+<link href="https://www.gnu.org/software/make/manual/html_node/Pattern-Match.html" rel="next" title="Pattern Match">
+<link href="https://www.gnu.org/software/make/manual/html_node/Pattern-Examples.html" rel="prev" title="Pattern Examples">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="Automatic%20Variables%20(GNU%20make)_files/manual.css">
+
+
+<meta id="Reverso_extension___elForCheckedInstallExtension" name="Reverso extension" content="2.2.205"></head>
+
+<body lang="en">
+<div class="subsection" id="Automatic-Variables">
+<div class="header">
+<p>
+Next: <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Match.html" accesskey="n" rel="next">How Patterns Match</a>, Previous: <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Examples.html" accesskey="p" rel="prev">Pattern Rule Examples</a>, Up: <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Rules.html" accesskey="u" rel="up">Defining and Redefining Pattern Rules</a> &nbsp; [<a href="https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="https://www.gnu.org/software/make/manual/html_node/Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Automatic-Variables-1"></span><h4 class="subsection">10.5.3 Automatic Variables</h4>
+<span id="index-automatic-variables"></span>
+<span id="index-variables_002c-automatic"></span>
+<span id="index-variables_002c-and-implicit-rule"></span>
+
+<p>Suppose you are writing a pattern rule to compile a ‘<samp>.c</samp>’ file into a
+‘<samp>.o</samp>’ file: how do you write the ‘<samp>cc</samp>’ command so that it operates
+on the right source file name?  You cannot write the name in the recipe,
+because the name is different each time the implicit rule is applied.
+</p>
+<p>What you do is use a special feature of <code>make</code>, the <em>automatic
+variables</em>.  These variables have values computed afresh for each rule that
+is executed, based on the target and prerequisites of the rule.  In this
+example, you would use ‘<samp>$@</samp>’ for the object file name and ‘<samp>$&lt;</samp>’
+for the source file name.
+</p>
+<span id="index-automatic-variables-in-prerequisites"></span>
+<span id="index-prerequisites_002c-and-automatic-variables"></span>
+<p>It’s very important that you recognize the limited scope in which
+automatic variable values are available: they only have values within
+the recipe.  In particular, you cannot use them anywhere
+within the target list of a rule; they have no value there and will
+expand to the empty string.  Also, they cannot be accessed directly
+within the prerequisite list of a rule.  A common mistake is
+attempting to use <code>$@</code> within the prerequisites list; this will
+not work.  However, there is a special feature of GNU <code>make</code>,
+secondary expansion (see <a href="https://www.gnu.org/software/make/manual/html_node/Secondary-Expansion.html">Secondary Expansion</a>), which will allow
+automatic variable values to be used in prerequisite lists.
+</p>
+<p>Here is a table of automatic variables:
+</p>
+<dl compact="compact">
+<dd><span id="index-_0024_0040"></span>
+<span id="index-_0040-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span><code>$@</code></span></dt>
+<dd><p>The file name of the target of the rule.  If the target is an archive
+member, then ‘<samp>$@</samp>’ is the name of the archive file.  In a pattern
+rule that has multiple targets (see <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Intro.html">Introduction to
+Pattern Rules</a>), ‘<samp>$@</samp>’ is the name of whichever target caused the
+rule’s recipe to be run.
+</p>
+<span id="index-_0024_0025"></span>
+<span id="index-_0025-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span><code>$%</code></span></dt>
+<dd><p>The target member name, when the target is an archive member.
+See <a href="https://www.gnu.org/software/make/manual/html_node/Archives.html">Using <code>make</code> to Update Archive Files</a>.  For example, if the target is <samp>foo.a(bar.o)</samp> then
+‘<samp>$%</samp>’ is <samp>bar.o</samp> and ‘<samp>$@</samp>’ is <samp>foo.a</samp>.  ‘<samp>$%</samp>’ is
+empty when the target is not an archive member.
+</p>
+<span id="index-_0024_003c"></span>
+<span id="index-_003c-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span><code>$&lt;</code></span></dt>
+<dd><p>The name of the first prerequisite.  If the target got its recipe from
+an implicit rule, this will be the first prerequisite added by the
+implicit rule (see <a href="https://www.gnu.org/software/make/manual/html_node/Implicit-Rules.html">Using Implicit Rules</a>).
+</p>
+<span id="index-_0024_003f"></span>
+<span id="index-_003f-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span><code>$?</code></span></dt>
+<dd><p>The names of all the prerequisites that are newer than the target, with
+spaces between them.  If the target does not exist, all prerequisites
+will be included.  For prerequisites which are archive members, only the
+named member is used (see <a href="https://www.gnu.org/software/make/manual/html_node/Archives.html">Using <code>make</code> to Update Archive Files</a>).
+</p>
+<p>‘<samp>$?</samp>’ is useful even in explicit rules when you wish to operate on only
+the prerequisites that have changed.  For example, suppose that an archive
+named <samp>lib</samp> is supposed to contain copies of several object files.
+This rule copies just the changed object files into the archive:
+</p>
+<div class="example">
+<pre class="example">lib: foo.o bar.o lose.o win.o
+        ar r lib $?
+</pre></div>
+<span id="index-prerequisites_002c-list-of-changed"></span>
+<span id="index-list-of-changed-prerequisites"></span>
+
+<span id="index-_0024_005e"></span>
+<span id="index-_005e-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span><code>$^</code></span></dt>
+<dd><p>The names of all the prerequisites, with spaces between them.  For
+prerequisites which are archive members, only the named member is used
+(see <a href="https://www.gnu.org/software/make/manual/html_node/Archives.html">Using <code>make</code> to Update Archive Files</a>).  A target has only one prerequisite on each other file
+it depends on, no matter how many times each file is listed as a
+prerequisite.  So if you list a prerequisite more than once for a target,
+the value of <code>$^</code> contains just one copy of the name.  This list
+does <strong>not</strong> contain any of the order-only prerequisites; for those
+see the ‘<samp>$|</samp>’ variable, below.
+<span id="index-prerequisites_002c-list-of-all"></span>
+<span id="index-list-of-all-prerequisites"></span>
+</p>
+<span id="index-_0024_002b"></span>
+<span id="index-_002b-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span><code>$+</code></span></dt>
+<dd><p>This is like ‘<samp>$^</samp>’, but prerequisites listed more than once are
+duplicated in the order they were listed in the makefile.  This is
+primarily useful for use in linking commands where it is meaningful to
+repeat library file names in a particular order.
+</p>
+<span id="index-_0024_007c"></span>
+<span id="index-_007c-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span><code>$|</code></span></dt>
+<dd><p>The names of all the order-only prerequisites, with spaces between
+them.
+</p>
+<span id="index-_0024_002a"></span>
+<span id="index-_002a-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span><code>$*</code></span></dt>
+<dd><p>The stem with which an implicit rule matches (see <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Match.html">How
+Patterns Match</a>).  If the target is <samp>dir/a.foo.b</samp> and the target
+pattern is <samp>a.%.b</samp> then the stem is <samp>dir/foo</samp>.  The stem is
+useful for constructing names of related files.
+<span id="index-stem_002c-variable-for"></span>
+</p>
+<p>In a static pattern rule, the stem is part of the file name that matched
+the ‘<samp>%</samp>’ in the target pattern.
+</p>
+<p>In an explicit rule, there is no stem; so ‘<samp>$*</samp>’ cannot be determined
+in that way.  Instead, if the target name ends with a recognized suffix
+(see <a href="https://www.gnu.org/software/make/manual/html_node/Suffix-Rules.html">Old-Fashioned Suffix Rules</a>), ‘<samp>$*</samp>’ is set to
+the target name minus the suffix.  For example, if the target name is
+‘<samp>foo.c</samp>’, then ‘<samp>$*</samp>’ is set to ‘<samp>foo</samp>’, since ‘<samp>.c</samp>’ is a
+suffix.  GNU <code>make</code> does this bizarre thing only for compatibility
+with other implementations of <code>make</code>.  You should generally avoid
+using ‘<samp>$*</samp>’ except in implicit rules or static pattern rules.
+</p>
+<p>If the target name in an explicit rule does not end with a recognized
+suffix, ‘<samp>$*</samp>’ is set to the empty string for that rule.
+</p></dd>
+</dl>
+
+<p>Of the variables listed above, four have values that are single file
+names, and three have values that are lists of file names.  These
+seven have variants that get just the file’s directory name or just
+the file name within the directory.  The variant variables’ names are
+formed by appending ‘<samp>D</samp>’ or ‘<samp>F</samp>’, respectively.  The functions
+<code>dir</code> and <code>notdir</code> can be used to obtain a similar effect
+(see <a href="https://www.gnu.org/software/make/manual/html_node/File-Name-Functions.html">Functions for File Names</a>).  Note,
+however, that the ‘<samp>D</samp>’ variants all omit the trailing slash which
+always appears in the output of the <code>dir</code> function.  Here is a
+table of the variants:
+</p>
+<dl compact="compact">
+<dd><span id="index-_0024_0028_0040D_0029"></span>
+<span id="index-_0040D-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(@D)</samp>’</span></dt>
+<dd><p>The directory part of the file name of the target, with the trailing
+slash removed.  If the value of ‘<samp>$@</samp>’ is <samp>dir/foo.o</samp> then
+‘<samp>$(@D)</samp>’ is <samp>dir</samp>.  This value is <samp>.</samp> if ‘<samp>$@</samp>’ does
+not contain a slash.
+</p>
+<span id="index-_0024_0028_0040F_0029"></span>
+<span id="index-_0040F-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(@F)</samp>’</span></dt>
+<dd><p>The file-within-directory part of the file name of the target.  If the
+value of ‘<samp>$@</samp>’ is <samp>dir/foo.o</samp> then ‘<samp>$(@F)</samp>’ is
+<samp>foo.o</samp>.  ‘<samp>$(@F)</samp>’ is equivalent to ‘<samp>$(notdir $@)</samp>’.
+</p>
+<span id="index-_0024_0028_002aD_0029"></span>
+<span id="index-_002aD-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(*D)</samp>’</span></dt>
+<dd><span id="index-_0024_0028_002aF_0029"></span>
+<span id="index-_002aF-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(*F)</samp>’</span></dt>
+<dd><p>The directory part and the file-within-directory
+part of the stem; <samp>dir</samp> and <samp>foo</samp> in this example.
+</p>
+<span id="index-_0024_0028_0025D_0029"></span>
+<span id="index-_0025D-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(%D)</samp>’</span></dt>
+<dd><span id="index-_0024_0028_0025F_0029"></span>
+<span id="index-_0025F-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(%F)</samp>’</span></dt>
+<dd><p>The directory part and the file-within-directory part of the target
+archive member name.  This makes sense only for archive member targets
+of the form <samp><var>archive</var>(<var>member</var>)</samp> and is useful only when
+<var>member</var> may contain a directory name.  (See <a href="https://www.gnu.org/software/make/manual/html_node/Archive-Members.html">Archive Members as Targets</a>.)
+</p>
+<span id="index-_0024_0028_003cD_0029"></span>
+<span id="index-_003cD-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(&lt;D)</samp>’</span></dt>
+<dd><span id="index-_0024_0028_003cF_0029"></span>
+<span id="index-_003cF-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(&lt;F)</samp>’</span></dt>
+<dd><p>The directory part and the file-within-directory
+part of the first prerequisite.
+</p>
+<span id="index-_0024_0028_005eD_0029"></span>
+<span id="index-_005eD-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(^D)</samp>’</span></dt>
+<dd><span id="index-_0024_0028_005eF_0029"></span>
+<span id="index-_005eF-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(^F)</samp>’</span></dt>
+<dd><p>Lists of the directory parts and the file-within-directory
+parts of all prerequisites.
+</p>
+<span id="index-_0024_0028_002bD_0029"></span>
+<span id="index-_002bD-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(+D)</samp>’</span></dt>
+<dd><span id="index-_0024_0028_002bF_0029"></span>
+<span id="index-_002bF-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(+F)</samp>’</span></dt>
+<dd><p>Lists of the directory parts and the file-within-directory
+parts of all prerequisites, including multiple instances of duplicated
+prerequisites.
+</p>
+<span id="index-_0024_0028_003fD_0029"></span>
+<span id="index-_003fD-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(?D)</samp>’</span></dt>
+<dd><span id="index-_0024_0028_003fF_0029"></span>
+<span id="index-_003fF-_0028automatic-variable_0029"></span>
+</dd>
+<dt><span>‘<samp>$(?F)</samp>’</span></dt>
+<dd><p>Lists of the directory parts and the file-within-directory parts of
+all prerequisites that are newer than the target.
+</p></dd>
+</dl>
+
+<p>Note that we use a special stylistic convention when we talk about these
+automatic variables; we write “the value of ‘<samp>$&lt;</samp>’”, rather than
+“the&nbsp;variable&nbsp;<code>&lt;</code>”<!-- /@w --> as we would write for ordinary variables
+such as <code>objects</code> and <code>CFLAGS</code>.  We think this convention
+looks more natural in this special case.  Please do not assume it has a
+deep significance; ‘<samp>$&lt;</samp>’ refers to the variable named <code>&lt;</code> just
+as ‘<samp>$(CFLAGS)</samp>’ refers to the variable named <code>CFLAGS</code>.
+You could just as well use ‘<samp>$(&lt;)</samp>’ in place of ‘<samp>$&lt;</samp>’.
+</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Match.html">How Patterns Match</a>, Previous: <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Examples.html">Pattern Rule Examples</a>, Up: <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Rules.html">Defining and Redefining Pattern Rules</a> &nbsp; [<a href="https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="https://www.gnu.org/software/make/manual/html_node/Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+
+
+</body></html>
