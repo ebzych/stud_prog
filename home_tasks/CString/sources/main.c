@@ -3,7 +3,8 @@
 #include <time.h>
 
 int main() {
-    char *big_string = create_big_string(1000000);
+    char *big_string = NULL;
+    big_string = create_big_string(1000000);
     time_t time_start = time(NULL);
     strings_array_t *arr = str_sep(big_string, ' ');
     time_t time_end = time(NULL);

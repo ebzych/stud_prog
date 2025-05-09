@@ -1,6 +1,28 @@
 #ifndef CSTRING
 #define CSTRING
 
+#define USING_VALGRIND    // valgrind is using
+
+ 
+#ifdef USING_VALGRIND
+/*
+    Code insertions for valgrind which mute valgrind 
+    'Conditional jump or move depends on uninitialised 
+    value(s)' for exact memory blocks
+*/
+#define VALGRIND_IS_USED(code) #code
+#endif
+#ifndef USING_VALGRIND
+/*
+    Code insertions for valgrind which mute valgrind 
+    'Conditional jump or move depends on uninitialised 
+    value(s)' for exact memory blocks
+*/
+#define VALGRIND_IS_USED(code)
+#endif
+
+#include <valgrind/memcheck.h>
+
 #include <stdlib.h>
 #include "initiator_string.h"
 #include "big_strings.h"

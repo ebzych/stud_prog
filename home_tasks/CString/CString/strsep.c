@@ -9,6 +9,8 @@ strings_array_t *strsep_sp(const string_t *string, char delim) {
 }
 
 strings_array_t *strsep_ccp(const char *cstring, char delim) {
+    VALGRIND_MAKE_MEM_NOACCESS(cstring, str_len(cstring));
+    // cstring = memset(cstring, cstring, str_len(cstring));   // for valgrind
     size_t count = count_char_inputs(cstring, delim);
     strings_array_t *substrings = malloc(sizeof(strings_array_t));
     substrings->size = count;

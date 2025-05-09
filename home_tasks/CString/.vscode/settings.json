@@ -18,7 +18,9 @@
         "tear_down_messages.h": "c",
         "strcat.h": "c",
         "initiator_string.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "memcheck.h": "c",
+        "system_error": "c"
     },
     "makefile.launchConfigurations": [
         {

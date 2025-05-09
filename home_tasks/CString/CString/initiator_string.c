@@ -2,12 +2,15 @@
 #include <memory.h>
 
 int strlen_ccp(const char *cstring) {
+    VALGRIND_MAKE_MEM_DEFINED(cstring, 1);
     if (cstring == NULL) {
         return -1;
     }
     int count = 0;
+    VALGRIND_MAKE_MEM_UNDEFINED(cstring[count], 1);
     while (cstring[count] != '\0') {
         ++count;
+        VALGRIND_MAKE_MEM_DEFINED(cstring[count], 1);
     }
     return count;
 }

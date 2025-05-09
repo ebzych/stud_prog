@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -O0 -r
+CFLAGS = -g -O0
 LIB = -ICString -I "../../unity_tests/Unity/src" -I "../../unity_tests/Unity/extras/fixture/src" -I "../../unity_tests/Unity/extras/memory/src"
 SRC = CString/initiator_string.c CString/strcmp.c \
 	CString/support_functions.c CString/big_strings.c CString/strcat.c \
@@ -25,4 +25,4 @@ test_build: $(OBJ)
 		$(UNITY_TESTS) $(UNITY_MEMORY) $(UNITY_FIXTURE) -lm -o build/Test/test_CString
 
 $(OBJ): %.o : %.c
-	$(CC) $(CFLAGS) $(LIB) $< -o $@
+	$(CC) -r $(CFLAGS) $(LIB) $< -o $@
