@@ -1,5 +1,4 @@
 #include "initiator_string.h"
-#include "string_t.h"
 #include <memory.h>
 
 int strlen_ccp(const char *cstring) {

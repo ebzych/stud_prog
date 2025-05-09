@@ -15,7 +15,10 @@
         "initializer_list": "c",
         "unity_memory.h": "c",
         "time.h": "c",
-        "tear_down_messages.h": "c"
+        "tear_down_messages.h": "c",
+        "strcat.h": "c",
+        "initiator_string.h": "c",
+        "stdbool.h": "c"
     },
     "makefile.launchConfigurations": [
         {

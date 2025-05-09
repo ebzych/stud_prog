@@ -14,6 +14,7 @@ char *create_big_string(size_t number_of_letters) {
     if ( (big_string = malloc((1 + number_of_letters) * sizeof(char))) == NULL) {    // '+ 1' for null-terminator
         return NULL;
     }
+    memset (big_string, 0, number_of_letters);
     for (int length = 0; length < number_of_letters; ++length) {
         big_string[length] = get_random_char();
     }

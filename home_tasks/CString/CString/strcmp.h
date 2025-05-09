@@ -1,6 +1,8 @@
 #ifndef STRCMP
 #define STRCMP
 
+typedef struct string_s string_t;
+typedef struct strings_array_s strings_array_t;
 #include "string_t.h"
 #include <stdbool.h>
 

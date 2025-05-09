@@ -1,6 +1,8 @@
 #ifndef INIT_STR
 #define INIT_STR
 
+typedef struct string_s string_t;
+typedef struct strings_array_s strings_array_t;
 #include "string_t.h"
 #include <stdlib.h>
 

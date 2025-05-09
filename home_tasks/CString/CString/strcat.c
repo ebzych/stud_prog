@@ -1,5 +1,4 @@
-#include <strcat.h>
-#include <initiator_string.h>
+#include "strcat.h"
 #include <stdlib.h>
 #include <memory.h>
 

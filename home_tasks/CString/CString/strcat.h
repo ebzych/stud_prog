@@ -1,7 +1,9 @@
 #ifndef STRCAT
 #define STRCAT
 
-#include <string_t.h>
+typedef struct string_s string_t;
+typedef struct strings_array_s strings_array_t;
+#include "string_t.h"
 
 #define str_cat(to, from) _Generic( (from),\
         char *       : strcat_ccp,          \

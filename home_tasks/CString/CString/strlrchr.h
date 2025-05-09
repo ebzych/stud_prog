@@ -1,6 +1,8 @@
 #ifndef STRLRCHR
 #define STRLRCHR
 
+typedef struct string_s string_t;
+typedef struct strings_array_s strings_array_t;
 #include "string_t.h"
 
 #define str_chr(string, ch) _Generic( (string), \

@@ -1,6 +1,5 @@
 #include "strcmp.h"
 
-
 bool strcmp_spcp(string_t *first,   char * second) {
     char *safety_first_ptr = first->str;
     for (int i = 0; *safety_first_ptr != '\0' && *second != '\0'; ++safety_first_ptr, ++second) {
