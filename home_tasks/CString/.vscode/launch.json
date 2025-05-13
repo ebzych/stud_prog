@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/build/Test/test_CString",
             "args": [],
             "stopAtEntry": true,
-            "cwd": "${fileDirname}",
+            "cwd": "/usr/src/glibc/glibc-2.36",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
