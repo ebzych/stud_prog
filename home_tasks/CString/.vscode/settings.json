@@ -4,7 +4,23 @@
         "unity.h": "c",
         "unity_fixture.h": "c",
         "string": "c",
-        "big_strings.h": "c"
+        "big_strings.h": "c",
+        "string_t.h": "c",
+        "memory.h": "c",
+        "array": "c",
+        "deque": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "unity_memory.h": "c",
+        "time.h": "c",
+        "tear_down_messages.h": "c",
+        "strcat.h": "c",
+        "initiator_string.h": "c",
+        "stdbool.h": "c",
+        "memcheck.h": "c",
+        "system_error": "c"
     },
     "makefile.launchConfigurations": [
         {
